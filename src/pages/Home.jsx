@@ -1,9 +1,9 @@
-import FinancialProducts from "./FinancialProducts";
+import FinancialProducts from "../components/FinancialProducts";
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import CreateFinancialProduct from "./CreateFinancialProduct";
+import CreateFinancialProduct from "../components/CreateFinancialProduct";
 import EditFinancialProduct from "../components/EditFinancialProduct";
-import DetailedFinancialProduct from "./DetailedFinancialProduct";
+import DetailedFinancialProduct from "../components/DetailedFinancialProduct";
 import styles from "../Home.module.css";
 
 export default function Home(){
