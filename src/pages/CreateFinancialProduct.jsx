@@ -1,6 +1,6 @@
 
 
-export default function CreateFinancialProduct({handleCreate}){
+export default function CreateFinancialProduct({handleCreate, onCancel}){
     return (
         <div>
             <h1>상품 생성</h1>
@@ -55,6 +55,7 @@ export default function CreateFinancialProduct({handleCreate}){
                     <input type="date" name="startDate"/>
                 </div>
                 <button type="submit">생성</button>
+                <button type="button" onClick={onCancel}>취소</button>
             </form>
         </div>
     );

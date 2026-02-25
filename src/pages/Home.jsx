@@ -45,7 +45,7 @@ export default function Home(){
           console.error("Failed to create product:", error);
           alert("상품 생성에 실패했습니다.");
         });
-    }}/>;
+    }} onCancel={() => setMode("READ")}/>;
   }
   return (
     <div>
