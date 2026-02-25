@@ -1,9 +1,14 @@
 
-export default function FinancialProducts({products}){
+export default function FinancialProducts({products, onClickProduct}){
     const rows = products.map(product=>{
         return <tr key={product.id}>
                 <td>
-                    <a href={`/products/detailed?id=${product.id}`}>{product.name}</a>
+                    <a href={`/products/${product.id}`} onClick={(e) => {
+                        e.preventDefault();
+                        onClickProduct(product.id);
+                    }}>
+                            {product.name}
+                    </a>
                 </td>
             </tr>
     })
