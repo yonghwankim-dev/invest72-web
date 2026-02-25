@@ -4,6 +4,8 @@ import Login from './pages/Login';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import useAuth from './hooks/useAuth';
+import CreateFinancialProduct from './pages/CreateFinancialProduct';
+import DetailedFinancialProduct from './pages/DetailedFinancialProduct';
 
 function App() {
   return (
@@ -21,6 +23,9 @@ function AppContent(){
       <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/login" element={<Login/>}/>
+          <Route path="/products/create" element={<CreateFinancialProduct/>}/>
+          <Route path="/products/detailed" element={<DetailedFinancialProduct/>}/>
+          <Route path="/products/edit" element={<CreateFinancialProduct isEdit={true}/>}/> 
       </Routes>
     </>
   );
