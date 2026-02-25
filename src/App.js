@@ -2,9 +2,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login';
 import NavBar from './components/NavBar';
-import Home from './pages/Home';
 import useAuth from './hooks/useAuth';
-
+import Home from './pages/Home';
+import FinancialProduct from './pages/FianancialProduct';
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +20,7 @@ function AppContent(){
       <NavBar user={user} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
       <Routes>
           <Route path="/" element={<Home />}/>
+          <Route path="/products" element={<FinancialProduct />}/>
           <Route path="/login" element={<Login/>}/>
       </Routes>
     </>

@@ -7,16 +7,16 @@ export default function EditFinancialProduct({product, onEdit, onCancel}){
             <form className="form" onSubmit={onEdit}>
                 <input type="hidden" name="id" value={product?.id}/>
                 <div className="formRow">
-                    <label>상품 이름:</label>
-                    <input type="text" name="name" defaultValue={product?.name}/>
-                </div>
-                <div className="formRow">
                     <label>상품 유형:</label>
                     <select name="productType" defaultValue={product?.productType}>
                         <option value="CASH">현금</option>
                         <option value="DEPOSIT">예금</option>
                         <option value="SAVINGS">적금</option>
                     </select>
+                </div>
+                <div className="formRow">
+                    <label>상품 이름:</label>
+                    <input type="text" name="name" defaultValue={product?.name}/>
                 </div>
                 <div className="formRow">
                     <label>금액:</label>
