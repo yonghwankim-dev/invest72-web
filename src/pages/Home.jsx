@@ -112,14 +112,14 @@ export default function Home(){
       api.put(`/api/v1/products/${data.id}`, data)
         .then(response => {
           alert("상품이 성공적으로 수정되었습니다.");
-          setMode("READ"); // 상품 수정 후 목록 보기로 전환
+          setMode("READ_DETAIL"); // 상품 수정 후 상세 보기로 전환
         })
         .catch(error => {
           console.error("Failed to edit product:", error);
           alert("상품 수정에 실패했습니다.");
         });
     }
-    content = <EditFinancialProduct product={selectedProduct} onEdit={onEdit} onCancel={() => setMode("READ")}/>;    
+    content = <EditFinancialProduct product={selectedProduct} onEdit={onEdit} onCancel={() => setMode("READ_DETAIL")}/>;    
   }
   return (
     <div className={styles.page}>
