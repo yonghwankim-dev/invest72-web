@@ -89,6 +89,8 @@ export default function Home(){
               console.error("Failed to delete product:", error);
               alert("상품 삭제에 실패했습니다.");
             });
+          setId(null); // 삭제 후 선택된 상품 ID 초기화
+          setSelectedProduct(null); // 삭제 후 선택된 상품 정보 초기화
         }
       }}>상품 삭제</button>
       <button onClick={() => setMode("READ")}>목록으로</button>
