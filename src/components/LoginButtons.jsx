@@ -7,8 +7,8 @@ export default function LoginButtons() {
         window.location.href = `http://localhost:8080/oauth2/authorization/${provider}`;
     }
     return (
-        <div>
-            <button onClick={()=>handleLogin("google")}>
+        <div className="actions">
+            <button className="buttonPrimary" onClick={()=>handleLogin("google")}>
                 구글로 시작하기
             </button>
         </div>

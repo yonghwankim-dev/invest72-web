@@ -1,0 +1,32 @@
+.page {
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 24px 20px 40px;
+}
+
+.content {
+	margin-bottom: 16px;
+}
+
+.controllerArea nav {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.controllerArea button {
+	border: 1px solid #d6dae1;
+	background: #ffffff;
+	color: #1b1f24;
+	border-radius: 8px;
+	padding: 10px 14px;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.controllerArea button:hover {
+	background: #f5f7fb;
+	border-color: #c5ccd8;
+}

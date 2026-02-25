@@ -4,6 +4,7 @@ import api from "../api/axios";
 import CreateFinancialProduct from "./CreateFinancialProduct";
 import EditFinancialProduct from "../components/EditFinancialProduct";
 import DetailedFinancialProduct from "./DetailedFinancialProduct";
+import styles from "../Home.module.css";
 
 export default function Home(){
   const [mode, setMode] = useState("READ");
@@ -121,9 +122,11 @@ export default function Home(){
     content = <EditFinancialProduct product={selectedProduct} onEdit={onEdit} onCancel={() => setMode("READ")}/>;    
   }
   return (
-    <div>
-      {content}
-      {contextController}
+    <div className={styles.page}>
+      <div className={styles.content}>{content}</div>
+      <div className={styles.controllerArea}>
+        {contextController}
+      </div>
     </div>
   )
 }
