@@ -14,7 +14,7 @@ export default function FinancialProduct(){
   
   useEffect(() => {
     if (mode === "READ") {
-      api.get("/api/v1/products").then(response => {
+      api.get("/api/v1/products/summary").then(response => {
         setProducts(response.data);
       }).catch(error => {
         console.error("Failed to fetch products:", error);
@@ -113,7 +113,7 @@ export default function FinancialProduct(){
     content = <EditFinancialProduct product={selectedProduct} onEdit={onEdit} onCancel={() => setMode("READ_DETAIL")}/>;    
   }
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} ${mode === "READ" ? styles.pageWide : ""}`}>
       <div className={styles.content}>{content}</div>
       <div className={styles.controllerArea}>
         {contextController}

@@ -4,6 +4,10 @@
 	padding: 24px 20px 40px;
 }
 
+.pageWide {
+	max-width: 1200px;
+}
+
 .content {
 	margin-bottom: 16px;
 }
