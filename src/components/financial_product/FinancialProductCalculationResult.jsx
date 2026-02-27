@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import styles from "./FinancialProductCalculationResult.module.css";
+import styles from "../../FinancialProductCalculationResult.module.css";
 
 export default function FinancialProductCalculationResult({result}){
     const [showYearly, setShowYearly] = useState(true);
