@@ -34,6 +34,8 @@ export default function DetailedFinancialProduct({product}){
             .catch(error => {
                 console.error("수익 계산 실패:", error);
             });
+        }else if(product && product.investmentType === "CASH"){
+            setCalculationResult(null); // 현금 상품은 수익 계산 결과 없음
         }
     }, [product]);
 
@@ -46,7 +48,7 @@ export default function DetailedFinancialProduct({product}){
             <div className="details">
                 <p><span>상품 유형</span><strong>{investmentType[product.investmentType]}</strong></p>
                 <p><span>상품 이름</span><strong>{product.name}</strong></p>
-                <p><span>금액</span><strong>{product.amount}</strong></p>
+                <p><span>금액</span><strong>{product.amount.toLocaleString()}원</strong></p>
             </div>
         );
     }else if(product.investmentType === "DEPOSIT" || product.investmentType === "SAVINGS"){
@@ -57,23 +59,27 @@ export default function DetailedFinancialProduct({product}){
                     <p><span>상품 이름</span><strong>{product.name}</strong></p>
                     <p><span>금액</span><strong>{product.amount.toLocaleString()}원</strong></p>
                     <p><span>개월</span><strong>{product.months}</strong></p>
-                    <p><span>이자율(%)</span><strong>{product.interestRate * 100}</strong></p>
+                    <p><span>이자율(%)</span><strong>{(product.interestRate * 100).toFixed(2)}</strong></p>
                     <p><span>이자유형</span><strong>{interestType[product.interestType]}</strong></p>
                     <p><span>세금유형</span><strong>{taxType[product.taxType]}</strong></p>
-                    <p><span>세금율(%)</span><strong>{product.taxRate * 100}</strong></p>
+                    <p><span>세금율(%)</span><strong>{(product.taxRate * 100).toFixed(2)}</strong></p>
                     <p><span>시작일자</span><strong>{product.startDate}</strong></p>
             </div>
         );
     }
+
     return (
         <>
         <div className="card">
             <h1 className="pageTitle">금융 상품 상세 페이지</h1>
             {content}
         </div>
-        <div className="card">
-            <FinancialProductCalculationResult result={calculationResult} />
-        </div>
+        {calculationResult && (
+            <div className="card">
+                <h2 className="sectionTitle">수익 계산 결과</h2>
+                <FinancialProductCalculationResult result={calculationResult} />
+            </div>
+        )}
         </>
     )
 }
