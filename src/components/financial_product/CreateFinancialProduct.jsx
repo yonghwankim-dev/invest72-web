@@ -141,7 +141,7 @@ export default function CreateFinancialProduct({onCreate, onCancel}){
         </div>
     );
 
-    const onChangeProductType = (e) => {
+    const onChangeInvestmentType = (e) => {
         const selectedType = e.target.value;
         if(selectedType === "NONE"){
             setFormContent(null);
@@ -171,7 +171,7 @@ export default function CreateFinancialProduct({onCreate, onCancel}){
             <div className="formRow">
                 <form className="form" onSubmit={onCreate}>
                     <label>상품 유형:</label>
-                    <select className="productType" name="productType" onChange={onChangeProductType}>
+                    <select className="investmentType" name="investmentType" onChange={onChangeInvestmentType}>
                         <option value="NONE">상품 유형 선택</option>
                         <option value="CASH">현금</option>
                         <option value="DEPOSIT">예금</option>
