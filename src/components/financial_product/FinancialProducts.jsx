@@ -6,6 +6,7 @@ export default function FinancialProducts({products, onClickProduct}){
         "SAVINGS": "적금"
     }
     const rows = products.map(product=>{
+        console.log(product.expirationDate);
         return <tr key={product.id}>
                 <td>
                     <a className="tableLink" href={`/products/${product.id}`} onClick={(e) => {
@@ -18,7 +19,8 @@ export default function FinancialProducts({products, onClickProduct}){
                 <td>{investmentTypeMap[product.investmentType]}</td>
                 <td>{(product.interestRate * 100).toFixed(2)}%</td>
                 <td>{product.startDate}</td>
-                <td>{product.expirationDate}</td>
+                {/* 만기일이 최대인 경우에는 "만기일 없음"으로 표시 */}
+                <td>{product.expirationDate === "+999999999-12-31" ? "만기일 없음" : product.expirationDate}</td>
                 <td>{product.balance.toLocaleString()}원</td>
                 <td>{product.expectedInterest.toLocaleString()}원</td>
                 <td>{(product.progress * 100).toFixed(2)}%</td>

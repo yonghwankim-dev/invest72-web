@@ -20,7 +20,7 @@ function AppContent(){
       <NavBar user={user} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
       <Routes>
           <Route path="/" element={<Home />}/>
-          <Route path="/products" element={<FinancialProduct />}/>
+          <Route path="/products" element={isLoggedIn ? <FinancialProduct /> : <Login />}/>
           <Route path="/login" element={<Login/>}/>
       </Routes>
     </>
