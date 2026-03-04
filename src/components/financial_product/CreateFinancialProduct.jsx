@@ -106,6 +106,10 @@ export default function CreateFinancialProduct({onCreate, onCancel}){
                 <input type="number" name="months" placeholder="0"/>
             </div>
             <div className="formRow">
+                <label>납일일</label>
+                <input type="number" name="paymentDay" placeholder="1" min="1" max="31"/>
+            </div>
+            <div className="formRow">
                 <label>이자율(%)</label>
                 <input type="number" step="0.01" name="interestRate" placeholder="5"/>
             </div>

@@ -8,7 +8,7 @@ export default function EditFinancialProduct({product, onEdit, onCancel}){
                 <input type="hidden" name="id" value={product?.id}/>
                 <div className="formRow">
                     <label>상품 유형:</label>
-                    <select name="productType" defaultValue={product?.productType}>
+                    <select name="investmentType" defaultValue={product?.investmentType}>
                         <option value="CASH">현금</option>
                         <option value="DEPOSIT">예금</option>
                         <option value="SAVINGS">적금</option>
@@ -26,9 +26,16 @@ export default function EditFinancialProduct({product, onEdit, onCancel}){
                     <label>개월:</label>
                     <input type="number" name="months" defaultValue={product?.months}/>
                 </div>
+                {/* 적금 상품인 경우에는 납입일을 표시함 */}
+                {product?.investmentType === "SAVINGS" && (
+                    <div className="formRow">
+                        <label>납입일:</label>
+                        <input type="number" name="paymentDay" defaultValue={product?.paymentDay}/>
+                    </div>
+                )}
                 <div className="formRow">
-                    <label>이자율:</label>
-                    <input type="number" step="0.01" name="interestRate" defaultValue={product?.interestRate}/>
+                    <label>이자율(%):</label>
+                    <input type="number" step="0.01" name="interestRate" defaultValue={product?.interestRate * 100}/>
                 </div>
                 <div className="formRow">
                     <label>이자유형:</label>
@@ -48,8 +55,8 @@ export default function EditFinancialProduct({product, onEdit, onCancel}){
                     </select>
                 </div>
                 <div className="formRow">
-                    <label>세금율:</label>
-                    <input type="number" step="0.001" name="taxRate" defaultValue={product?.taxRate}/>
+                    <label>세금율(%):</label>
+                    <input type="number" step="0.001" name="taxRate" defaultValue={product?.taxRate * 100}/>
                 </div>
                 <div className="formRow">
                     <label>시작일자:</label>

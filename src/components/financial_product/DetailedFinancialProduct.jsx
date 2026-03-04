@@ -60,6 +60,9 @@ export default function DetailedFinancialProduct({product}){
                     <p><span>상품 이름</span><strong>{product.name}</strong></p>
                     <p><span>{amountTitle}</span><strong>{product.amount.toLocaleString()}원</strong></p>
                     <p><span>개월</span><strong>{product.months}</strong></p>
+                    {product.investmentType === "SAVINGS" && (
+                        <p><span>납일일</span><strong>{product.paymentDay}일</strong></p>
+                    )}
                     <p><span>이자율(%)</span><strong>{(product.interestRate * 100).toFixed(2)}</strong></p>
                     <p><span>이자유형</span><strong>{interestType[product.interestType]}</strong></p>
                     <p><span>세금유형</span><strong>{taxType[product.taxType]}</strong></p>
