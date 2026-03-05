@@ -5,7 +5,7 @@ on:
       - main
 
 jobs:
-  ci:
+  ci-cd:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
