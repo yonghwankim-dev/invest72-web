@@ -24,7 +24,9 @@ export default function useAuth(){
     // 로그인 성공시 호출될 함수
     const checkAuthStatus = useCallback(async() => {
         try{
-            const response = await api.get("/api/v1/users/me");
+            const response = await api.get("/api/v1/users/me", {
+                withCredentials: true // 세션 쿠키 포함
+            });
             setUser(response.data);
             setIsLoggedIn(true);
         }catch(error){
