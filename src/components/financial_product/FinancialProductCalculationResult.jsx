@@ -8,14 +8,14 @@ export default function FinancialProductCalculationResult({result}){
     if(!result){
         return <p className={styles.emptyMessage}>수익 계산 결과를 불러오는 중입니다...</p>;
     }
-    
+    const currencyUnit = result.productCurrency.unit || "원";
     return (
         <div className={styles.section}>
             <div className={styles.summaryGrid}>
-                <p className={styles.summaryItem}><span>총 투자금</span><strong>{result.totalInvestment.toLocaleString()}원</strong></p>
-                <p className={styles.summaryItem}><span>총 이자</span><strong>{result.totalInterest.toLocaleString()}원</strong></p>
-                <p className={styles.summaryItem}><span>총 세금({result.taxType} {result.taxPercent})</span><strong>{result.totalTax.toLocaleString()}원</strong></p>
-                <p className={styles.summaryItem}><span>총 수익</span><strong>{result.totalProfit.toLocaleString()}원</strong></p>
+                <p className={styles.summaryItem}><span>총 투자금</span><strong>{result.totalInvestment.toLocaleString()} {currencyUnit}</strong></p>
+                <p className={styles.summaryItem}><span>총 이자</span><strong>{result.totalInterest.toLocaleString()} {currencyUnit}</strong></p>
+                <p className={styles.summaryItem}><span>총 세금({result.taxType} {result.taxPercent})</span><strong>{result.totalTax.toLocaleString()} {currencyUnit}</strong></p>
+                <p className={styles.summaryItem}><span>총 수익</span><strong>{result.totalProfit.toLocaleString()} {currencyUnit}</strong></p>
             </div>
 
             {/** 년도별/월별 선택하여 출력, 기본: 년도별 */}
@@ -36,7 +36,7 @@ function FinancialProductYearlyCalculationResult({result}){
     if(!result){
         return <p className={styles.emptyMessage}>수익 계산 결과를 불러오는 중입니다...</p>;
     }
-    
+    const currencyUnit = result.productCurrency.unit || "원";
     return (
         <div className={styles.section}>
         {result.yearlyDetails.length === 0 ? (
@@ -56,9 +56,9 @@ function FinancialProductYearlyCalculationResult({result}){
                         {result.yearlyDetails.map((detail, index) => (
                             <tr key={index}>
                                 <td>{detail.year}</td>
-                                <td>{detail.principal.toLocaleString()}원</td>
-                                <td>{detail.interest.toLocaleString()}원</td>
-                                <td>{detail.profit.toLocaleString()}원</td>
+                                <td>{detail.principal.toLocaleString()} {currencyUnit}</td>
+                                <td>{detail.interest.toLocaleString()} {currencyUnit}</td>
+                                <td>{detail.profit.toLocaleString()} {currencyUnit}</td>
                             </tr>
                         ))}
                     </tbody>

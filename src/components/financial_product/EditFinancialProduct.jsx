@@ -62,6 +62,13 @@ export default function EditFinancialProduct({product, onEdit, onCancel}){
                     <label>시작일자:</label>
                     <input type="date" name="startDate" defaultValue={product?.startDate}/>
                 </div>
+                <div className="formRow">
+                    <label>화폐 통화</label>
+                    <select name="currencyCode" defaultValue={product?.productCurrency.code}>
+                        <option value="KRW">원화(₩)</option>
+                        <option value="USD">달러($)</option>
+                    </select>
+                </div>
                 <div className="actions">
                     <button className="buttonPrimary" type="submit">수정</button>
                     <button className="buttonSecondary" type="button" onClick={onCancel}>취소</button>

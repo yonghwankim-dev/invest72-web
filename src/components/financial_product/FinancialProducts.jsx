@@ -21,8 +21,8 @@ export default function FinancialProducts({products, onClickProduct}){
                 <td>{product.startDate}</td>
                 {/* 만기일이 최대인 경우에는 "만기일 없음"으로 표시 */}
                 <td>{product.expirationDate === "+999999999-12-31" ? "만기일 없음" : product.expirationDate}</td>
-                <td>{product.balance.toLocaleString()}원</td>
-                <td>{product.expectedInterest.toLocaleString()}원</td>
+                <td>{product.balance.toLocaleString()} {product.productCurrency.unit}</td>
+                <td>{product.expectedInterest.toLocaleString()} {product.productCurrency.unit}</td>
                 <td>{(product.progress * 100).toFixed(2)}%</td>
                 <td>D-{product.remainingDays}</td>
             </tr>
@@ -35,7 +35,7 @@ export default function FinancialProducts({products, onClickProduct}){
                     <tr>
                         <th>상품명</th>
                         <th>투자 유형</th>
-                        <th>이자율</th>
+                        <th>연 이자율</th>
                         <th>시작일</th>
                         <th>만기일</th>
                         <th>현재 잔액(원금)</th>

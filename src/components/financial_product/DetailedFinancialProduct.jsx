@@ -48,7 +48,8 @@ export default function DetailedFinancialProduct({product}){
             <div className="details">
                 <p><span>상품 유형</span><strong>{investmentType[product.investmentType]}</strong></p>
                 <p><span>상품 이름</span><strong>{product.name}</strong></p>
-                <p><span>금액</span><strong>{product.amount.toLocaleString()}원</strong></p>
+                <p><span>금액</span><strong>{product.amount.toLocaleString()} {product.productCurrency.unit}</strong></p>
+                <p><span>화폐 통화</span><strong>{product.productCurrency.name}({product.productCurrency.unit})</strong></p>
             </div>
         );
     }else if(product.investmentType === "DEPOSIT" || product.investmentType === "SAVINGS"){
@@ -58,18 +59,19 @@ export default function DetailedFinancialProduct({product}){
             <div className="details">
                     <p><span>상품 유형</span><strong>{investmentType[product.investmentType]}</strong></p>
                     <p><span>상품 이름</span><strong>{product.name}</strong></p>
-                    <p><span>{amountTitle}</span><strong>{product.amount.toLocaleString()}원</strong></p>
+                    <p><span>{amountTitle}</span><strong>{product.amount.toLocaleString()} {product.productCurrency.unit}</strong></p>
+                    <p><span>화폐 통화</span><strong>{product.productCurrency.name}({product.productCurrency.unit})</strong></p>
                     <p><span>개월</span><strong>{product.months}</strong></p>
                     {product.investmentType === "SAVINGS" && (
                         <p><span>납일일</span><strong>{product.paymentDay}일</strong></p>
                     )}
-                    <p><span>이자율(%)</span><strong>{(product.interestRate * 100).toFixed(2)}</strong></p>
+                    <p><span>연 이자율(%)</span><strong>{(product.interestRate * 100).toFixed(2)}</strong></p>
                     <p><span>이자유형</span><strong>{interestType[product.interestType]}</strong></p>
                     <p><span>세금유형</span><strong>{taxType[product.taxType]}</strong></p>
                     <p><span>세금율(%)</span><strong>{(product.taxRate * 100).toFixed(2)}</strong></p>
                     <p><span>시작일자</span><strong>{product.startDate}</strong></p>
                     <p><span>만기일자</span><strong>{product.expirationDate === "+999999999-12-31" ? "만기일 없음" : product.expirationDate}</strong></p>
-                    <p><span>현재 잔액(원금)</span><strong>{product.balance.toLocaleString()}원</strong></p>
+                    <p><span>현재 잔액(원금)</span><strong>{product.balance.toLocaleString()} {product.productCurrency.unit}</strong></p>
                     <p><span>진행률</span><strong>{(product.progress * 100).toFixed(2)}%</strong></p>
                     <p><span>남은 일수</span><strong>D-{product.remainingDays}</strong></p>
             </div>

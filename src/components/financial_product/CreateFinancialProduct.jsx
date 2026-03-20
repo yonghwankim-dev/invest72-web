@@ -40,6 +40,13 @@ export default function CreateFinancialProduct({onCreate, onCancel}){
                 <label>금액</label>
                 <input type="number" name="amount" placeholder="0"/>
             </div>
+            <div className="formRow">
+                <label>화폐 통화</label>
+                <select name="currencyCode" defaultValue="KRW">
+                    <option value="KRW">원화(₩)</option>
+                    <option value="USD">달러($)</option>
+                </select>
+            </div>
             <input type="hidden" name="months" value="0"/>
             <input type="hidden" name="interestRate" value="0"/>
             <input type="hidden" name="interestType" value="NONE"/>
@@ -89,6 +96,13 @@ export default function CreateFinancialProduct({onCreate, onCancel}){
                 <label>시작일자</label>
                 <input type="date" name="startDate" defaultValue={new Date().toISOString().split('T')[0]}/>
             </div>
+            <div className="formRow">
+                <label>화폐 통화</label>
+                <select name="currencyCode" defaultValue="KRW">
+                    <option value="KRW">원화(₩)</option>
+                    <option value="USD">달러($)</option>
+                </select>
+            </div>
         </>
     );
     const savingsForm = (
@@ -135,6 +149,13 @@ export default function CreateFinancialProduct({onCreate, onCancel}){
             <div className="formRow">
                 <label>시작일자</label>
                 <input type="date" name="startDate" defaultValue={new Date().toISOString().split('T')[0]}/>
+            </div>
+            <div className="formRow">
+                <label>화폐 통화</label>
+                <select name="currencyCode" defaultValue="KRW">
+                    <option value="KRW">원화(₩)</option>
+                    <option value="USD">달러($)</option>
+                </select>
             </div>
         </>
     );
