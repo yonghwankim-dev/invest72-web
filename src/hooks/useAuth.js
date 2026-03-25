@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function useAuth(){
     const [user, setUser] = useState(null);
@@ -17,6 +18,8 @@ export default function useAuth(){
             // 서버 요청이 실패하더라도 클라이언트 상태는 초기화하여 로그아웃 처리
             setUser(null);
             setIsLoggedIn(false);
+            // INVEST72_SESSION 쿠키 삭제
+            Cookies.remove("INVEST72_SESSION");
             navigate("/login"); // 로그아웃 후 로그인 페이지로 이동
         }        
     }, [navigate]);
@@ -24,7 +27,9 @@ export default function useAuth(){
     // 로그인 성공시 호출될 함수
     const checkAuthStatus = useCallback(async() => {
         try{
-            const response = await api.get("/api/v1/users/me");
+            const response = await api.get("/api/v1/users/me", {
+                withCredentials: true // 세션 쿠키 포함
+            });
             setUser(response.data);
             setIsLoggedIn(true);
         }catch(error){

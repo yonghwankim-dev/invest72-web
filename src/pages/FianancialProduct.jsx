@@ -14,7 +14,7 @@ export default function FinancialProduct(){
   
   useEffect(() => {
     if (mode === "READ") {
-      api.get("/api/v1/products/summary").then(response => {
+      api.get("/api/v1/products").then(response => {
         setProducts(response.data);
       }).catch(error => {
         console.error("Failed to fetch products:", error);
