@@ -13,7 +13,6 @@ export default function NavBar({user, isLoggedIn, handleLogout}){
           {isLoggedIn && (
             <li><Link to="/products" className="navLink">상품</Link></li>
           )}
-          <li><Link to="/calculation" className="navLink">복리 계산기</Link></li>
         </ul>
       </div>
 
