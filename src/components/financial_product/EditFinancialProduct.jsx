@@ -5,7 +5,9 @@ export default function EditFinancialProduct({product, onEdit, onCancel}){
         <div className="card">
             <h1 className="pageTitle">상품 수정</h1>
             <form className="form" onSubmit={onEdit}>
-                <input type="hidden" name="id" value={product?.id}/>
+                <input type="hidden" name="productId" value={product?.id}/>
+                <input type="hidden" name="userId" value={product?.userId}/>
+                <input type="hidden" name="createdAt" value={product?.createdAt}/>
                 <div className="formRow">
                     <label>상품 유형:</label>
                     <select name="investmentType" defaultValue={product?.investmentType}>

@@ -100,7 +100,7 @@ export default function FinancialProduct(){
       data.interestRate = parseFloat(data.interestRate / 100); // 사용자 입력이 퍼센트이므로 100으로 나누어 소수로 변환
       data.taxRate = parseFloat(data.taxRate / 100); // 사용자 입력이 퍼센트이므로 100으로 나누어 소수로 변환
 
-      api.put(`/api/v1/products/${data.id}`, data)
+      api.put(`/api/v1/products/${data.productId}`, data)
         .then(response => {
           alert("상품이 성공적으로 수정되었습니다.");
           setMode("READ_DETAIL"); // 상품 수정 후 상세 보기로 전환
