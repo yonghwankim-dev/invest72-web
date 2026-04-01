@@ -1,5 +1,4 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 
 const HOST = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
 const api = axios.create({
