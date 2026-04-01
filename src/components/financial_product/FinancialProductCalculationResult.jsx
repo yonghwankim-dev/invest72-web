@@ -73,7 +73,7 @@ function FinancialProductMonthlyCalculationResult({result}){
     if(!result){
         return <p className={styles.emptyMessage}>수익 계산 결과를 불러오는 중입니다...</p>;
     }
-    
+    const currencyUnit = result.productCurrency.unit || "원";
     return (
         <div className={styles.section}>
         {result.monthlyDetails.length === 0 ? (
@@ -94,9 +94,9 @@ function FinancialProductMonthlyCalculationResult({result}){
                             // month가 연말인 경우 강조 표시
                             <tr key={index} className={detail.month % 12 === 0 ? styles.highlightRow : ""}>
                                 <td>{detail.month}</td>
-                                <td>{detail.principal.toLocaleString()}원</td>
-                                <td>{detail.interest.toLocaleString()}원</td>
-                                <td>{detail.profit.toLocaleString()}원</td>
+                                <td>{detail.principal.toLocaleString()} {currencyUnit}</td>
+                                <td>{detail.interest.toLocaleString()} {currencyUnit}</td>
+                                <td>{detail.profit.toLocaleString()} {currencyUnit}</td>
                             </tr>
                         ))}
                     </tbody>
