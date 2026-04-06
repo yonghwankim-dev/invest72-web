@@ -6,7 +6,6 @@ export default function FinancialProducts({products, onClickProduct}){
         "SAVINGS": "적금"
     }
     const rows = products.map(product=>{
-        console.log(product.expirationDate);
         return <tr key={product.id}>
                 <td>
                     <a className="tableLink" href={`/products/${product.id}`} onClick={(e) => {
