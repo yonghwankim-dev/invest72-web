@@ -32,40 +32,47 @@ export default function FinancialProduct(){
 
   let content = null;
   let contextController = null;
-  if (mode === MODES.READ) {
-    const onClickProduct = (productId) => {
-      setId(productId);
-      setMode(MODES.DETAIL);
-    };
-    content = <FinancialProducts products={products} onClickProduct={onClickProduct} />;
-    contextController = <nav>
-      <button onClick={() => setMode(MODES.CREATE)}>상품 등록</button>
-    </nav>
-  }else if (mode === MODES.CREATE) {
-    const onCreate = (event) => {
-      event.preventDefault();
-      createProduct(parseFormData(new FormData(event.target)));
-    }
-    content = <CreateFinancialProduct onCreate={onCreate} onCancel={() => setMode(MODES.READ)}/>;
-  }
-  else if(mode === MODES.DETAIL){
-    // DETAIL 모드에 대한 처리 (예: 상품 상세 보기)
-    content = <DetailedFinancialProduct product={selectedProduct}/>;
-    contextController = <nav>
-      <button onClick={() => setMode(MODES.EDIT)}>상품 수정</button>
-      <button onClick={() => deleteProduct(id)}>상품 삭제</button>
-      <button onClick={() => setMode(MODES.READ)}>목록으로</button>
-    </nav>
-  }
-  else if (mode === MODES.EDIT) {
-    // EDIT 모드에 대한 처리 (예: 상품 수정 폼)
-    const onEdit = (event) => {
-      event.preventDefault();
-      const data = parseFormData(new FormData(event.target));
-      updateProduct(id, data);
-    }
-    content = <EditFinancialProduct product={selectedProduct} onEdit={onEdit} onCancel={() => setMode(MODES.DETAIL)}/>;    
-  }
+
+  switch(mode){
+    case MODES.READ:
+      const onClickProduct = (productId) => {
+        setId(productId);
+        setMode(MODES.DETAIL);
+      };
+      content = <FinancialProducts products={products} onClickProduct={onClickProduct} />;
+      contextController = <nav>
+        <button onClick={() => setMode(MODES.CREATE)}>상품 등록</button>
+      </nav>
+      break;
+    case MODES.DETAIL:
+      // DETAIL 모드에 대한 처리 (예: 상품 상세 보기)
+      content = <DetailedFinancialProduct product={selectedProduct}/>;
+      contextController = <nav>
+        <button onClick={() => setMode(MODES.EDIT)}>상품 수정</button>
+        <button onClick={() => deleteProduct(id)}>상품 삭제</button>
+        <button onClick={() => setMode(MODES.READ)}>목록으로</button>
+      </nav>
+      break;
+    case MODES.CREATE:
+      const onCreate = (event) => {
+        event.preventDefault();
+        createProduct(parseFormData(new FormData(event.target)));
+      }
+      content = <CreateFinancialProduct onCreate={onCreate} onCancel={() => setMode(MODES.READ)}/>;
+      break;
+    case MODES.EDIT:
+      // EDIT 모드에 대한 처리 (예: 상품 수정 폼)
+      const onEdit = (event) => {
+        event.preventDefault();
+        const data = parseFormData(new FormData(event.target));
+        updateProduct(id, data);
+      }
+      content = <EditFinancialProduct product={selectedProduct} onEdit={onEdit} onCancel={() => setMode(MODES.DETAIL)}/>;    
+      break;
+    default:
+      content = <div>로딩 중...</div>;
+  };
+
   return (
     <div className={`${styles.page} ${mode === MODES.READ ? styles.pageWide : ""}`}>
       <div className={styles.content}>{content}</div>
