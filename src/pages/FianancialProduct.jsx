@@ -19,7 +19,7 @@ const parseFormData = (formData)=>{
 export default function FinancialProduct(){
   const {
     mode, setMode, products, selectedProduct, id, setId,
-    fetchProducts, fetchProductDetail, createProduct, updateProduct, deleteProduct
+    fetchProducts, fetchProductDetail, createProduct, updateProduct, deleteProduct, goToReadMode
   } = useProducts();
   
   useEffect(()=>{
@@ -50,7 +50,7 @@ export default function FinancialProduct(){
       contextController = <nav>
         <button onClick={() => setMode(MODES.EDIT)}>상품 수정</button>
         <button onClick={() => deleteProduct(id)}>상품 삭제</button>
-        <button onClick={() => setMode(MODES.READ)}>목록으로</button>
+        <button onClick={() => goToReadMode()}>목록으로</button>
       </nav>
       break;
     case MODES.CREATE:
@@ -58,7 +58,7 @@ export default function FinancialProduct(){
         event.preventDefault();
         createProduct(parseFormData(new FormData(event.target)));
       }
-      content = <CreateFinancialProduct onCreate={onCreate} onCancel={() => setMode(MODES.READ)}/>;
+      content = <CreateFinancialProduct onCreate={onCreate} onCancel={() => goToReadMode()}/>;
       break;
     case MODES.EDIT:
       // EDIT 모드에 대한 처리 (예: 상품 수정 폼)
