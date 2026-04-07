@@ -1,194 +1,45 @@
 import { useState } from "react";
 
 
-/**
- * 상품 생성 폼 컴포넌트
- * 
- * 상품 유형 현금 선택하는 경우
- * - 상품 이름, 상품 유형, 금액만 입력하도록 폼 구성
- * 
- * 상품 유형 예금 또는 적금 선택하는 경우
- * - 상품 이름, 상품 유형, 금액, 개월, 이자율, 이자유형, 세금유형, 세금율, 시작일자 입력하도록 폼 구성
- * 
- * onCreate: 상품 생성 요청을 처리하는 함수 (폼 제출 시 호출)
- * onCancel: 상품 생성 취소를 처리하는 함수 (취소 버튼 클릭 시 호출)
- */
+const TAX_CONFIG = {
+    NONE: {name: "NONE", rate: 0, readOnly: true},
+    STANDARD : {name:"STANDARD", rate: 15.4, readOnly: true},
+    NON_TAX: {name: "NON_TAX", rate: 0, readOnly: true},
+    TAX_BENEFIT: {name: "TAX_BENEFIT", rate: 1.4, readOnly: false}
+};
+const INVESTMENT_TYPE_CONFIG = {
+    NONE : "NONE",
+    CASH : "CASH",
+    DEPOSIT : "DEPOSIT",
+    SAVINGS : "SAVINGS"
+}
+const INTEREST_TYPE_CONFIG = {
+    NONE : {name: "NONE", desc: "없음"},
+    SIMPLE : {name: "SIMPLE", desc: "단리"},
+    COMPOUND : {name: "COMPOUND", desc: "복리"},
+}
+
 export default function CreateFinancialProduct({onCreate, onCancel}){
-    const [formContent, setFormContent] = useState(null);
+    const [investmentType, setInvestmentType] = useState(INVESTMENT_TYPE_CONFIG.NONE);
+    const [taxSettings, setTaxSettings] = useState(TAX_CONFIG.STANDARD);
+    
     const onChangeTaxType = (e) => {
-        const taxRateInput = document.querySelector('input[name="taxRate"]');
-        if(e.target.value === "STANDARD"){
-            taxRateInput.value = 0.154;
-            taxRateInput.readOnly = true;
-        }
-        else if(e.target.value === "NON_TAX"){
-            taxRateInput.value = 0;
-            taxRateInput.readOnly = true;
-        }
-        else if(e.target.value === "TAX_BENEFIT"){
-            taxRateInput.value = 0.014;
-            taxRateInput.readOnly = false;
+        const selectedTaxType = e.target.value;
+        if(TAX_CONFIG[selectedTaxType]){
+            setTaxSettings(TAX_CONFIG[selectedTaxType]);
         }
     }
-    const cashForm = (
-        <>
-            <div className="formRow">
-                <label>상품 이름</label>
-                <input type="text" name="name" placeholder="현금"/>
-            </div>
-            <div className="formRow">
-                <label>금액</label>
-                <input type="number" name="amount" placeholder="0"/>
-            </div>
-            <div className="formRow">
-                <label>화폐 통화</label>
-                <select name="currencyCode" defaultValue="KRW">
-                    <option value="KRW">원화(₩)</option>
-                    <option value="USD">달러($)</option>
-                </select>
-            </div>
-            <input type="hidden" name="months" value="0"/>
-            <input type="hidden" name="interestRate" value="0"/>
-            <input type="hidden" name="interestType" value="NONE"/>
-            <input type="hidden" name="taxType" value="NONE"/>
-            <input type="hidden" name="taxRate" value="0"/>
-            <input type="hidden" name="startDate" value={new Date().toISOString().split('T')[0]}/>
-        </>
-    )
-    const depositForm = (
-        <>
-            <div className="formRow">
-                <label>상품 이름</label>
-                <input type="text" name="name" placeholder="정기예금"/>
-            </div>
-            <div className="formRow">
-                <label>일시금</label>
-                <input type="number" name="amount" placeholder="0"/>
-            </div>
-            <div className="formRow">
-                <label>개월</label>
-                <input type="number" name="months" placeholder="0"/>
-            </div>
-            <div className="formRow">
-                <label>이자율(%)</label>
-                <input type="number" step="0.01" name="interestRate" placeholder="5"/>
-            </div>
-            <div className="formRow">
-                <label>이자유형</label>
-                <select name="interestType" defaultValue="COMPOUND">
-                    <option value="SIMPLE">단리</option>
-                    <option value="COMPOUND">복리</option>
-                </select>
-            </div>
-            <div className="formRow">
-                <label>세금유형</label>
-                <select name="taxType" defaultValue="STANDARD" onChange={onChangeTaxType}>
-                    <option value="STANDARD">표준과세</option>
-                    <option value="NON_TAX">비과세</option>
-                    <option value="TAX_BENEFIT">세금우대</option>
-                </select>
-            </div>
-            <div className="formRow">
-                <label>세금율(%)</label>
-                <input type="number" step="0.001" name="taxRate" placeholder="15.4" defaultValue="15.4" readOnly/>
-            </div>
-            <div className="formRow">
-                <label>시작일자</label>
-                <input type="date" name="startDate" defaultValue={new Date().toISOString().split('T')[0]}/>
-            </div>
-            <div className="formRow">
-                <label>화폐 통화</label>
-                <select name="currencyCode" defaultValue="KRW">
-                    <option value="KRW">원화(₩)</option>
-                    <option value="USD">달러($)</option>
-                </select>
-            </div>
-        </>
-    );
-    const savingsForm = (
-        <>
-            <div className="formRow">
-                <label>상품 이름</label>
-                <input type="text" name="name" placeholder="적금"/>
-            </div>
-            <div className="formRow">
-                <label>월 적립 금액</label>
-                <input type="number" name="amount" placeholder="0"/>
-            </div>
-            <div className="formRow">
-                <label>개월</label>
-                <input type="number" name="months" placeholder="0"/>
-            </div>
-            <div className="formRow">
-                <label>납일일</label>
-                <input type="number" name="paymentDay" placeholder="1" min="1" max="31"/>
-            </div>
-            <div className="formRow">
-                <label>이자율(%)</label>
-                <input type="number" step="0.01" name="interestRate" placeholder="5"/>
-            </div>
-            <div className="formRow">
-                <label>이자유형</label>
-                <select name="interestType" defaultValue="COMPOUND">
-                    <option value="SIMPLE">단리</option>
-                    <option value="COMPOUND">복리</option>
-                </select>
-            </div>
-            <div className="formRow">
-                <label>세금유형</label>
-                <select name="taxType" defaultValue="STANDARD" onChange={onChangeTaxType}>
-                    <option value="STANDARD">표준과세</option>
-                    <option value="NON_TAX">비과세</option>
-                    <option value="TAX_BENEFIT">세금우대</option>
-                </select>
-            </div>
-            <div className="formRow">
-                <label>세금율(%)</label>
-                <input type="number" step="0.001" name="taxRate" placeholder="15.4" defaultValue="15.4" readOnly/>
-            </div>
-            <div className="formRow">
-                <label>시작일자</label>
-                <input type="date" name="startDate" defaultValue={new Date().toISOString().split('T')[0]}/>
-            </div>
-            <div className="formRow">
-                <label>화폐 통화</label>
-                <select name="currencyCode" defaultValue="KRW">
-                    <option value="KRW">원화(₩)</option>
-                    <option value="USD">달러($)</option>
-                </select>
-            </div>
-        </>
-    );
-    const actionController = (
-        <div className="actions">
-            <button className="buttonPrimary" type="submit">생성</button>
-            <button className="buttonSecondary" type="button" onClick={onCancel}>취소</button>
+
+    // 공통 필드: 화폐 통화
+    const CurrencySelect = ()=>(
+        <div className="formRow">
+            <label>화폐 통화</label>
+            <select name="currencyCode" defaultValue="KRW">
+                <option value="KRW">원화(₩)</option>
+                <option value="USD">달러($)</option>
+            </select>
         </div>
     );
-
-    const onChangeInvestmentType = (e) => {
-        const selectedType = e.target.value;
-        if(selectedType === "NONE"){
-            setFormContent(null);
-            return;
-        }
-
-        let form = null;
-        if(selectedType === "CASH"){
-            form = cashForm;
-        }  else if(selectedType === "DEPOSIT"){
-            form = depositForm;
-        }else if(selectedType === "SAVINGS"){
-            form = savingsForm;
-        }
-        const formContent = (
-            <>
-                {form}
-                {actionController}
-            </>
-        );
-        setFormContent(formContent);
-    }
 
     return (
         <div className="card">
@@ -196,13 +47,89 @@ export default function CreateFinancialProduct({onCreate, onCancel}){
             <div className="formRow">
                 <form className="form" onSubmit={onCreate}>
                     <label>상품 유형:</label>
-                    <select className="investmentType" name="investmentType" onChange={onChangeInvestmentType}>
-                        <option value="NONE">상품 유형 선택</option>
-                        <option value="CASH">현금</option>
-                        <option value="DEPOSIT">예금</option>
-                        <option value="SAVINGS">적금</option>
+                    <select className="investmentType" name="investmentType" onChange={(e)=>setInvestmentType(e.target.value)}>
+                        <option value={INVESTMENT_TYPE_CONFIG.NONE}>상품 유형 선택</option>
+                        <option value={INVESTMENT_TYPE_CONFIG.CASH}>현금</option>
+                        <option value={INVESTMENT_TYPE_CONFIG.DEPOSIT}>예금</option>
+                        <option value={INVESTMENT_TYPE_CONFIG.SAVINGS}>적금</option>
                     </select>
-                    {formContent}
+                    {investmentType !== INVESTMENT_TYPE_CONFIG.NONE &&(
+                        <>
+                            <div className="formRow">
+                                <label>상품 이름</label>
+                                <input type="text" name="name" placeholder="현금"/>
+                            </div>
+                            <div className="formRow">
+                                <label>{investmentType === INVESTMENT_TYPE_CONFIG.SAVINGS ? "월 적립 금액" : "금액"}</label>
+                                <input type="number" name="amount" placeholder="0" required/>
+                            </div>
+                            {/* 현금 필드 */}
+                            {(investmentType === INVESTMENT_TYPE_CONFIG.CASH && (
+                                <>
+                                    <input type="hidden" name="months" value="0" readOnly/>
+                                    <input type="hidden" name="interestRate" value="0" readOnly/>
+                                    <input type="hidden" name="interestType" value={INTEREST_TYPE_CONFIG.NONE.name} readOnly/>
+                                    <input type="hidden" name="taxType" value={TAX_CONFIG.NONE.name} readOnly/>
+                                    <input type="hidden" name="taxRate" value="0" readOnly/>
+                                </>
+                            ))}
+
+                            {/* 예금/적금 공통 필드 */}
+                            {(investmentType === INVESTMENT_TYPE_CONFIG.DEPOSIT || investmentType === INVESTMENT_TYPE_CONFIG.SAVINGS) && (
+                                <>
+                                    <div className="formRow">
+                                        <label>개월</label>
+                                        <input type="number" name="months" placeholder="0" required/>
+                                    </div>
+                                    {investmentType === "SAVINGS" && (
+                                        <div className="formRow">
+                                            <label>납일일</label>
+                                            <input type="number" name="paymentDay" placeholder="1" min="1" max="31"/>
+                                        </div>
+                                    )}
+                                    <div className="formRow">
+                                        <label>이자율(%)</label>
+                                        <input type="number" step="0.01" name="interestRate" placeholder="5" required/>
+                                    </div>
+                                    <div className="formRow">
+                                        <label>이자유형</label>
+                                        <select name="interestType" defaultValue={INTEREST_TYPE_CONFIG.COMPOUND.name}>
+                                            <option value={INTEREST_TYPE_CONFIG.SIMPLE.name}>단리</option>
+                                            <option value={INTEREST_TYPE_CONFIG.COMPOUND.name}>복리</option>
+                                        </select>
+                                    </div>
+                                    <div className="formRow">
+                                        <label>세금유형</label>
+                                        <select name="taxType" defaultValue={TAX_CONFIG.STANDARD.name} onChange={onChangeTaxType}>
+                                            <option value={TAX_CONFIG.STANDARD.name}>표준과세</option>
+                                            <option value={TAX_CONFIG.NON_TAX.name}>비과세</option>
+                                            <option value={TAX_CONFIG.TAX_BENEFIT.name}>세금우대</option>
+                                        </select>
+                                    </div>
+                                    <div className="formRow">
+                                        <label>세금율(%)</label>
+                                        <input type="number" 
+                                                step="0.001" 
+                                                name="taxRate" 
+                                                value={taxSettings.rate} 
+                                                readOnly={taxSettings.readOnly}
+                                                onChange={(e)=>setTaxSettings({...taxSettings, rate: e.target.value})}
+                                        />
+                                    </div>
+                                </>
+                            )}
+                            <div className="formRow">
+                                <label>시작일자</label>
+                                <input type="date" name="startDate" defaultValue={new Date().toISOString().split('T')[0]}/>
+                            </div>
+
+                            <CurrencySelect/>
+                            <div className="actions">
+                            <button className="buttonPrimary" type="submit">생성</button>
+                            <button className="buttonSecondary" type="button" onClick={onCancel}>취소</button>
+                        </div>
+                        </>
+                    )}
                 </form>
             </div>
         </div>

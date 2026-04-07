@@ -1,10 +1,10 @@
 import FinancialProducts from "../components/financial_product/FinancialProducts";
 import { useEffect } from "react";
-import CreateFinancialProduct from "../components/financial_product/CreateFinancialProduct";
 import EditFinancialProduct from "../components/financial_product/EditFinancialProduct";
 import DetailedFinancialProduct from "../components/financial_product/DetailedFinancialProduct";
 import styles from "../Home.module.css";
 import { useProducts, MODES } from "../hooks/useProducts";
+import CreateFinancialProduct from "../components/financial_product/CreateFinancialProduct";
 
 const parseFormData = (formData)=>{
       const data = Object.fromEntries(formData.entries());
