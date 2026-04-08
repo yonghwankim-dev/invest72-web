@@ -1,23 +1,5 @@
 import { useState } from "react";
-
-
-const TAX_CONFIG = {
-    NONE: {name: "NONE", rate: 0, readOnly: true},
-    STANDARD : {name:"STANDARD", rate: 15.4, readOnly: true},
-    NON_TAX: {name: "NON_TAX", rate: 0, readOnly: true},
-    TAX_BENEFIT: {name: "TAX_BENEFIT", rate: 1.4, readOnly: false}
-};
-const INVESTMENT_TYPE_CONFIG = {
-    NONE : "NONE",
-    CASH : "CASH",
-    DEPOSIT : "DEPOSIT",
-    SAVINGS : "SAVINGS"
-}
-const INTEREST_TYPE_CONFIG = {
-    NONE : {name: "NONE", desc: "없음"},
-    SIMPLE : {name: "SIMPLE", desc: "단리"},
-    COMPOUND : {name: "COMPOUND", desc: "복리"},
-}
+import { INTEREST_TYPE_CONFIG, INVESTMENT_TYPE_CONFIG, TAX_CONFIG } from "../../constants";
 
 export default function CreateFinancialProduct({onCreate, onCancel}){
     const [investmentType, setInvestmentType] = useState(INVESTMENT_TYPE_CONFIG.NONE);
@@ -48,23 +30,23 @@ export default function CreateFinancialProduct({onCreate, onCancel}){
                 <form className="form" onSubmit={onCreate}>
                     <label>상품 유형:</label>
                     <select className="investmentType" name="investmentType" onChange={(e)=>setInvestmentType(e.target.value)}>
-                        <option value={INVESTMENT_TYPE_CONFIG.NONE}>상품 유형 선택</option>
-                        <option value={INVESTMENT_TYPE_CONFIG.CASH}>현금</option>
-                        <option value={INVESTMENT_TYPE_CONFIG.DEPOSIT}>예금</option>
-                        <option value={INVESTMENT_TYPE_CONFIG.SAVINGS}>적금</option>
+                        <option value={INVESTMENT_TYPE_CONFIG.NONE.name}>상품 유형 선택</option>
+                        <option value={INVESTMENT_TYPE_CONFIG.CASH.name}>{INVESTMENT_TYPE_CONFIG.CASH.title}</option>
+                        <option value={INVESTMENT_TYPE_CONFIG.DEPOSIT.name}>{INVESTMENT_TYPE_CONFIG.DEPOSIT.title}</option>
+                        <option value={INVESTMENT_TYPE_CONFIG.SAVINGS.name}>{INVESTMENT_TYPE_CONFIG.SAVINGS.title}</option>
                     </select>
-                    {investmentType !== INVESTMENT_TYPE_CONFIG.NONE &&(
+                    {investmentType !== INVESTMENT_TYPE_CONFIG.NONE.name &&(
                         <>
                             <div className="formRow">
                                 <label>상품 이름</label>
                                 <input type="text" name="name" placeholder="현금"/>
                             </div>
                             <div className="formRow">
-                                <label>{investmentType === INVESTMENT_TYPE_CONFIG.SAVINGS ? "월 적립 금액" : "금액"}</label>
+                                <label>{investmentType === INVESTMENT_TYPE_CONFIG.SAVINGS.name ? "월 적립 금액" : "금액"}</label>
                                 <input type="number" name="amount" placeholder="0" required/>
                             </div>
                             {/* 현금 필드 */}
-                            {(investmentType === INVESTMENT_TYPE_CONFIG.CASH && (
+                            {(investmentType === INVESTMENT_TYPE_CONFIG.CASH.name && (
                                 <>
                                     <input type="hidden" name="months" value="0" readOnly/>
                                     <input type="hidden" name="interestRate" value="0" readOnly/>
@@ -75,7 +57,7 @@ export default function CreateFinancialProduct({onCreate, onCancel}){
                             ))}
 
                             {/* 예금/적금 공통 필드 */}
-                            {(investmentType === INVESTMENT_TYPE_CONFIG.DEPOSIT || investmentType === INVESTMENT_TYPE_CONFIG.SAVINGS) && (
+                            {(investmentType === INVESTMENT_TYPE_CONFIG.DEPOSIT.name || investmentType === INVESTMENT_TYPE_CONFIG.SAVINGS.name) && (
                                 <>
                                     <div className="formRow">
                                         <label>개월</label>
