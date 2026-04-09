@@ -106,3 +106,7 @@
 .highlightRow {
   background-color: #fffbeb;
 }
+
+.active{
+  background-color: #f9fafb;
+}
