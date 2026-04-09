@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../../api/axios";
 import FinancialProductCalculationResult from "./FinancialProductCalculationResult";
 import {INTEREST_TYPE_CONFIG, INVESTMENT_TYPE_CONFIG, TAX_CONFIG} from "../../constants";
+import { formatPercent } from "../../utils/utils";
 
 export default function DetailedFinancialProduct({product}){
     const [calculationResult, setCalculationResult] = useState(null);
@@ -52,17 +53,17 @@ export default function DetailedFinancialProduct({product}){
                         {isSavings && (
                             <p><span>납일일</span><strong>{product.paymentDay}일</strong></p>
                         )}
-                        <p><span>연 이자율(%)</span><strong>{(product.interestRate * 100).toFixed(2)}</strong></p>
+                        <p><span>연 이자율(%)</span><strong>{formatPercent(product.interestRate)}</strong></p>
                         <p><span>이자유형</span><strong>{INTEREST_TYPE_CONFIG[product.interestType]?.desc}</strong></p>
                         <p><span>세금유형</span><strong>{TAX_CONFIG[product.taxType]?.title}</strong></p>
-                        <p><span>세금율(%)</span><strong>{(product.taxRate * 100).toFixed(2)}</strong></p>
+                        <p><span>세금율(%)</span><strong>{formatPercent(product.taxRate)}</strong></p>
                         <p><span>시작일자</span><strong>{product.startDate}</strong></p>
                         <p>
                             <span>만기일자</span>
                             <strong>{product.expirationDate === "+999999999-12-31" ? "만기일 없음" : product.expirationDate}</strong>
                         </p>
                         <p><span>현재 잔액(원금)</span><strong>{product.balance?.toLocaleString()} {currencyUnit}</strong></p>
-                        <p><span>진행률</span><strong>{(product.progress * 100).toFixed(2)}%</strong></p>
+                        <p><span>진행률</span><strong>{formatPercent(product.progress)}</strong></p>
                         <p><span>남은 일수</span><strong>{product.remainingDays <= 0 ? "만기" : `D-${product.remainingDays}`}</strong></p>
                     </>
                 )}
