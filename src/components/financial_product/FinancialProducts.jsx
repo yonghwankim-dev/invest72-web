@@ -1,5 +1,5 @@
 import { INVESTMENT_TYPE_CONFIG } from "../../constants";
-import { formatPercent } from "../../utils/utils";
+import { formatPercent, isNoExpiration } from "../../utils/utils";
 
 export default function FinancialProducts({products, onClickProduct}){
     const handleProductClick = (e, productId) => {
@@ -18,11 +18,10 @@ export default function FinancialProducts({products, onClickProduct}){
                     <td>{INVESTMENT_TYPE_CONFIG[product.investmentType].title}</td>
                     <td>{formatPercent(product.interestRate)}</td>
                     <td>{product.startDate}</td>
-                    {/* 만기일이 최대인 경우에는 "만기일 없음"으로 표시 */}
-                    <td>{product.expirationDate === "+999999999-12-31" ? "만기일 없음" : product.expirationDate}</td>
+                    <td>{isNoExpiration(product.expirationDate) ? "만기일 없음" : product.expirationDate}</td>
                     <td>{product.balance.toLocaleString()} {product.productCurrency.unit}</td>
                     <td>{product.expectedInterest.toLocaleString()} {product.productCurrency.unit}</td>
-                    <td>{(product.progress * 100).toFixed(2)}%</td>
+                    <td>{formatPercent(product.progress)}</td>
                     <td>D-{product.remainingDays}</td>
                 </tr>
         })

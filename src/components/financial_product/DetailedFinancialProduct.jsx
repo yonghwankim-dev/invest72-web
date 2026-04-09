@@ -12,7 +12,6 @@ export default function DetailedFinancialProduct({product}){
         if(product?.id && product.investmentType !== INVESTMENT_TYPE_CONFIG.CASH.name){
             api.get(`/api/v1/products/${product.id}/calculate`)
             .then(response => {
-                console.log("수익 계산 결과:", response.data);
                 setCalculationResult(response.data);
             })
             .catch(error => {
