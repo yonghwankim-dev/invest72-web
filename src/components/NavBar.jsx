@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./NavBar.css";
+import "../NavBar.css";
 
 export default function NavBar({user, isLoggedIn, handleLogout}){
     return (
@@ -17,7 +17,6 @@ export default function NavBar({user, isLoggedIn, handleLogout}){
       </div>
 
       <ul className="navLinks">
-        <li><Link to="/" className="navLink">홈</Link></li>
         {isLoggedIn ? (
           <>
             <li><strong className="userName">{user?.nickname}</strong></li>
