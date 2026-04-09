@@ -5,7 +5,6 @@ import NavBar from './components/NavBar';
 import useAuth from './hooks/useAuth';
 import Home from './pages/Home';
 import FinancialProduct from './pages/FianancialProduct';
-import CalculationPage from './pages/CalculationPage';
 function App() {
   return (
     <BrowserRouter>
@@ -23,7 +22,6 @@ function AppContent(){
           <Route path="/" element={<Home />}/>
           <Route path="/products" element={isLoggedIn ? <FinancialProduct /> : <Login />}/>
           <Route path="/login" element={<Login/>}/>
-          <Route path="/calculation" element={<CalculationPage />}/>
       </Routes>
     </>
   );
