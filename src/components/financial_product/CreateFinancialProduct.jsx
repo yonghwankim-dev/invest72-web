@@ -83,9 +83,10 @@ export default function CreateFinancialProduct({onCreate, onCancel}){
                                     <div className="formRow">
                                         <label>세금유형</label>
                                         <select name="taxType" defaultValue={TAX_CONFIG.STANDARD.name} onChange={onChangeTaxType}>
-                                            <option value={TAX_CONFIG.STANDARD.name}>표준과세</option>
-                                            <option value={TAX_CONFIG.NON_TAX.name}>비과세</option>
-                                            <option value={TAX_CONFIG.TAX_BENEFIT.name}>세금우대</option>
+                                            <option value={TAX_CONFIG.STANDARD.name}>{TAX_CONFIG.STANDARD.title}</option>
+                                            <option value={TAX_CONFIG.NON_TAX.name}>{TAX_CONFIG.NON_TAX.title}</option>
+                                            <option value={TAX_CONFIG.TAX_BENEFIT.name}>{TAX_CONFIG.TAX_BENEFIT.title}</option>
+                                            <option value={TAX_CONFIG.NONE.name}>{TAX_CONFIG.NONE.title}</option>
                                         </select>
                                     </div>
                                     <div className="formRow">
