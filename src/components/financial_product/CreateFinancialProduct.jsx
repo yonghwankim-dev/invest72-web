@@ -2,7 +2,7 @@ import { useState } from "react";
 import { INTEREST_TYPE_CONFIG, INVESTMENT_TYPE_CONFIG, TAX_CONFIG } from "../../constants";
 
 export default function CreateFinancialProduct({onCreate, onCancel}){
-    const [investmentType, setInvestmentType] = useState(INVESTMENT_TYPE_CONFIG.NONE);
+    const [investmentType, setInvestmentType] = useState(INVESTMENT_TYPE_CONFIG.NONE.name);
     const [taxSettings, setTaxSettings] = useState(TAX_CONFIG.STANDARD);
     
     const onChangeTaxType = (e) => {
@@ -30,7 +30,7 @@ export default function CreateFinancialProduct({onCreate, onCancel}){
                 <form className="form" onSubmit={onCreate}>
                     <label>상품 유형:</label>
                     <select className="investmentType" name="investmentType" onChange={(e)=>setInvestmentType(e.target.value)}>
-                        <option value={INVESTMENT_TYPE_CONFIG.NONE.name}>상품 유형 선택</option>
+                        <option value={INVESTMENT_TYPE_CONFIG.NONE.name} defaultChecked>상품 유형 선택</option>
                         <option value={INVESTMENT_TYPE_CONFIG.CASH.name}>{INVESTMENT_TYPE_CONFIG.CASH.title}</option>
                         <option value={INVESTMENT_TYPE_CONFIG.DEPOSIT.name}>{INVESTMENT_TYPE_CONFIG.DEPOSIT.title}</option>
                         <option value={INVESTMENT_TYPE_CONFIG.SAVINGS.name}>{INVESTMENT_TYPE_CONFIG.SAVINGS.title}</option>
@@ -63,7 +63,7 @@ export default function CreateFinancialProduct({onCreate, onCancel}){
                                         <label>개월</label>
                                         <input type="number" name="months" placeholder="0" required/>
                                     </div>
-                                    {investmentType === "SAVINGS" && (
+                                    {investmentType === INVESTMENT_TYPE_CONFIG.SAVINGS.name && (
                                         <div className="formRow">
                                             <label>납일일</label>
                                             <input type="number" name="paymentDay" placeholder="1" min="1" max="31"/>
