@@ -19,8 +19,9 @@ export default function FinancialProducts({products, onClickProduct}){
                     <td>{formatPercent(product.interestRate)}</td>
                     <td>{product.startDate}</td>
                     <td>{isNoExpiration(product.expirationDate) ? "만기일 없음" : product.expirationDate}</td>
-                    <td>{product.balance.toLocaleString()} {product.productCurrency.unit}</td>
-                    <td>{product.expectedInterest.toLocaleString()} {product.productCurrency.unit}</td>
+                    <td>{product.productCurrency.name}({product.productCurrency.code})</td>
+                    <td>{product.balance.toLocaleString()}</td>
+                    <td>{product.expectedInterest.toLocaleString()}</td>
                     <td>{formatPercent(product.progress)}</td>
                     <td>D-{product.remainingDays}</td>
                 </tr>
@@ -36,6 +37,7 @@ export default function FinancialProducts({products, onClickProduct}){
                         <th>연 이자율</th>
                         <th>시작일</th>
                         <th>만기일</th>
+                        <th>통화</th>
                         <th>현재 잔액(원금)</th>
                         <th>예상 이자</th>
                         <th>진행률</th>

@@ -8,10 +8,9 @@ export default function FinancialProductCalculationResult({result}){
     if(!result){
         return <p className={styles.emptyMessage}>수익 계산 결과를 불러오는 중입니다...</p>;
     }
-    const currencyUnit = result.productCurrency.unit;
     const details = showYearly ? result.yearlyDetails : result.monthlyDetails;
     // 통화 포맷팅 함수
-    const formatCurrency = (amount) => `${amount?.toLocaleString() || 0} ${currencyUnit}`;
+    const formatCurrency = (amount) => `${amount?.toLocaleString() || 0}`;
 
     return (
         <div className={styles.section}>
