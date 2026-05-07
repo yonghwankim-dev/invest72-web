@@ -51,6 +51,11 @@
 	font-weight: 400;
 }
 
+/* 강조 수치: 예상 이자 등 중요한 지표에 적용 */
+.highlight {
+    color: #3182ce;
+}
+
 /* 로딩 상태 */
 .loading{
 	padding: 40px;
