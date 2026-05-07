@@ -39,7 +39,10 @@ export default function FinancialProduct(){
         setId(productId);
         setMode(MODES.DETAIL);
       };
-      content = <FinancialProducts products={products} onClickProduct={onClickProduct} />;
+      content = 
+        <>
+          <FinancialProducts products={products} onClickProduct={onClickProduct} />
+        </>
       contextController = <nav>
         <button onClick={() => setMode(MODES.CREATE)}>상품 등록</button>
       </nav>
