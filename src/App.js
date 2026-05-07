@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import './DashboardProduct.css'
 import Login from './pages/Login';
 import NavBar from './components/NavBar';
 import useAuth from './hooks/useAuth';
