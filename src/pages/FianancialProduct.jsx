@@ -19,16 +19,17 @@ const parseFormData = (formData)=>{
 export default function FinancialProduct(){
   const {
     mode, setMode, products, selectedProduct, id, setId,
-    fetchProducts, fetchProductDetail, createProduct, updateProduct, deleteProduct, goToReadMode
+    fetchProducts, fetchProductDetail, createProduct, updateProduct, deleteProduct, goToReadMode, fetchProductStatistics
   } = useProducts();
   
   useEffect(()=>{
     if(mode === MODES.READ){
       fetchProducts();
+      fetchProductStatistics();
     }else if(mode === MODES.DETAIL && id){
       fetchProductDetail(id);
     }
-  }, [mode, id, fetchProducts, fetchProductDetail]);
+  }, [mode, id, fetchProducts, fetchProductDetail, fetchProductStatistics]);
 
   let content = null;
   let contextController = null;
