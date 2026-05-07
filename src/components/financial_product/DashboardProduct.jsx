@@ -1,11 +1,15 @@
 import styles from './DashboardProduct.module.css'
 
 export default function DashboardProduct({statistics}){
+    // 로딩 상태
     if(statistics === null){
         return <div className={styles.loading}>데이터 로딩중...</div>
     }
 
-    if(!statistics.totalBalance || !statistics.totalEstimatedInterest){
+    // 에러 상태
+    const isError = Object.keys(statistics).length == 0 || !statistics.totalBalance || !statistics.totalEstimatedInterest;
+    
+    if(isError){
         return <div className={styles.error}>통계 정보를 불러오는데 실패했습니다.</div>;
     }
 
