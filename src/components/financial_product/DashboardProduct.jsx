@@ -7,7 +7,7 @@ export default function DashboardProduct({statistics}){
     }
 
     // 에러 상태
-    const isError = Object.keys(statistics).length == 0 || !statistics.totalBalance || !statistics.totalEstimatedInterest;
+    const isError = Object.keys(statistics).length === 0 || !statistics.totalBalance || !statistics.totalEstimatedInterest;
     
     if(isError){
         return <div className={styles.error}>통계 정보를 불러오는데 실패했습니다.</div>;
