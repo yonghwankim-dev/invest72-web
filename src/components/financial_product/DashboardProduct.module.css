@@ -1,0 +1,84 @@
+/* 전체 컨테이너: 외부 여백 및 기본 디자인 */
+.container{
+	background: #ffffff;
+	border-radius: 16px;
+	padding: 24px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	border: 1px solid #edf2f7;
+}
+
+/* 제목 */
+.title{
+	font-size: 1.1rem;
+	color: #4a5568;
+	margin-bottom: 20px;
+	font-weight: 700;
+}
+
+/* 데이터 그리드: 각 항목을 정렬 */
+.grid{
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+/* 개별 항목: 라벨과 수치를 한줄에 배치 */
+.item{
+	display: flex;
+	align-items: center;
+}
+
+/* 라벨 */
+.label{
+	font-size: 0.9rem;
+	margin-right: 12px;
+	color: #718096;
+}
+
+/* 수치 */
+.value{
+	font-size: 1.2rem;
+	font-weight: 600;
+	color: #2d3748;
+}
+
+/* 강조 수치: 예상 이자 등 중요한 지표에 적용 */
+.unit{
+	font-style: normal;
+	font-size: 0.85rem;
+	margin-left: 4px;
+	color: #a0aec0;
+	font-weight: 400;
+}
+
+/* 강조 수치: 예상 이자 등 중요한 지표에 적용 */
+.highlight {
+    color: #3182ce;
+}
+
+/* 로딩 상태 */
+.loading{
+	padding: 40px;
+	text-align: center;
+	color: #a0aec0;
+}
+
+/* 에러 컨테이너: 카드 전체를 에러 박스로 활용 */
+.error {
+    background-color: #fff5f5; /* 아주 연한 빨간색 배경 */
+    border: 1px solid #feb2b2; /* 연한 빨간색 테두리 */
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    color: #c53030; /* 강조된 빨간색 텍스트 */
+    font-size: 0.95rem;
+    font-weight: 500;
+    
+    /* 기존 카드와 크기를 맞추기 위한 설정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 10px rgba(229, 62, 62, 0.05);
+}

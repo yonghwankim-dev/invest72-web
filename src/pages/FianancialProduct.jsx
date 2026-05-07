@@ -5,6 +5,7 @@ import styles from "../Home.module.css";
 import { useProducts, MODES } from "../hooks/useProducts";
 import CreateFinancialProduct from "../components/financial_product/CreateFinancialProduct";
 import DetailedFinancialProduct from "../components/financial_product/DetailedFinancialProduct";
+import DashboardProduct from "../components/financial_product/DashboardProduct";
 
 const parseFormData = (formData)=>{
       const data = Object.fromEntries(formData.entries());
@@ -19,16 +20,17 @@ const parseFormData = (formData)=>{
 export default function FinancialProduct(){
   const {
     mode, setMode, products, selectedProduct, id, setId,
-    fetchProducts, fetchProductDetail, createProduct, updateProduct, deleteProduct, goToReadMode
+    fetchProducts, fetchProductDetail, createProduct, updateProduct, deleteProduct, goToReadMode, statistics, fetchProductStatistics
   } = useProducts();
   
   useEffect(()=>{
     if(mode === MODES.READ){
       fetchProducts();
+      fetchProductStatistics();
     }else if(mode === MODES.DETAIL && id){
       fetchProductDetail(id);
     }
-  }, [mode, id, fetchProducts, fetchProductDetail]);
+  }, [mode, id, fetchProducts, fetchProductDetail, fetchProductStatistics]);
 
   let content = null;
   let contextController = null;
@@ -39,7 +41,11 @@ export default function FinancialProduct(){
         setId(productId);
         setMode(MODES.DETAIL);
       };
-      content = <FinancialProducts products={products} onClickProduct={onClickProduct} />;
+      content = 
+        <>
+          <DashboardProduct statistics={statistics}/>
+          <FinancialProducts products={products} onClickProduct={onClickProduct} />
+        </>
       contextController = <nav>
         <button onClick={() => setMode(MODES.CREATE)}>상품 등록</button>
       </nav>

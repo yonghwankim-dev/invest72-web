@@ -17,8 +17,8 @@ export default function CreateFinancialProduct({onCreate, onCancel}){
         <div className="formRow">
             <label>화폐 통화</label>
             <select name="currencyCode" defaultValue="KRW">
-                <option value="KRW">원화(₩)</option>
-                <option value="USD">달러($)</option>
+                <option value="KRW">한국 원</option>
+                <option value="USD">미국 달러</option>
             </select>
         </div>
     );

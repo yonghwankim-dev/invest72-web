@@ -29,7 +29,7 @@ export default function DetailedFinancialProduct({product}){
 
     const isCash = product.investmentType === INVESTMENT_TYPE_CONFIG.CASH.name;
     const isSavings = product.investmentType === INVESTMENT_TYPE_CONFIG.SAVINGS.name;
-    const currencyUnit = product.productCurrency?.unit || "";
+    const currencyCode = product.productCurrency?.code || "";
     
     return (
         <>
@@ -39,11 +39,12 @@ export default function DetailedFinancialProduct({product}){
                 {/* 1. 공통 정보 영역 */}
                 <p><span>상품 유형</span><strong>{INVESTMENT_TYPE_CONFIG[product.investmentType]?.title}</strong></p>
                 <p><span>상품 이름</span><strong>{product.name}</strong></p>
+                <p><span>화폐 통화</span><strong>{product.productCurrency?.name}({currencyCode})</strong></p>
                 <p>
                     <span>{isSavings ? "적금 월 납입 금액" : "금액"}</span>
-                    <strong>{product.amount?.toLocaleString()} {currencyUnit}</strong>
+                    <strong>{product.amount?.toLocaleString()}</strong>
                 </p>
-                <p><span>화폐 통화</span><strong>{product.productCurrency?.name}({currencyUnit})</strong></p>
+                
 
                 {/* 2. 예금/적금 추가 정보 영역 */}
                 {!isCash && (
@@ -61,7 +62,7 @@ export default function DetailedFinancialProduct({product}){
                             <span>만기일자</span>
                             <strong>{product.expirationDate === "+999999999-12-31" ? "만기일 없음" : product.expirationDate}</strong>
                         </p>
-                        <p><span>현재 잔액(원금)</span><strong>{product.balance?.toLocaleString()} {currencyUnit}</strong></p>
+                        <p><span>현재 잔액(원금)</span><strong>{product.balance?.toLocaleString()}</strong></p>
                         <p><span>진행률</span><strong>{formatPercent(product.progress)}</strong></p>
                         <p><span>남은 일수</span><strong>{product.remainingDays <= 0 ? "만기" : `D-${product.remainingDays}`}</strong></p>
                     </>

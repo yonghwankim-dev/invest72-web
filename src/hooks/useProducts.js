@@ -13,6 +13,7 @@ export function useProducts(){
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [mode, setMode] = useState(MODES.READ);
     const [id, setId] = useState(null);
+    const [statistics, setStatistics] = useState(null);
 
     // 상품 목록 조회
     const fetchProducts = useCallback(async()=>{
@@ -78,6 +79,17 @@ export function useProducts(){
         }
     },[fetchProducts]);
 
+    // 상품 통계 조회
+    const fetchProductStatistics = useCallback(async ()=>{
+        try{
+            const response = await api.get("/api/v1/products/statistics");
+            setStatistics(response.data);
+        }catch(error){
+            console.error("Failed to fetch products statistics:", error);
+            setStatistics({});
+        }
+    }, []);
+
     const goToReadMode = ()=>{
         setId(null);
         setSelectedProduct(null);
@@ -97,6 +109,8 @@ export function useProducts(){
         createProduct,
         updateProduct,
         deleteProduct,
-        goToReadMode
+        goToReadMode,
+        statistics,
+        fetchProductStatistics
     };
 }
