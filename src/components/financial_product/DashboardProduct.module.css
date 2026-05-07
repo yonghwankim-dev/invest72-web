@@ -57,3 +57,23 @@
 	text-align: center;
 	color: #a0aec0;
 }
+
+/* 에러 컨테이너: 카드 전체를 에러 박스로 활용 */
+.error {
+    background-color: #fff5f5; /* 아주 연한 빨간색 배경 */
+    border: 1px solid #feb2b2; /* 연한 빨간색 테두리 */
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    color: #c53030; /* 강조된 빨간색 텍스트 */
+    font-size: 0.95rem;
+    font-weight: 500;
+    
+    /* 기존 카드와 크기를 맞추기 위한 설정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 10px rgba(229, 62, 62, 0.05);
+}

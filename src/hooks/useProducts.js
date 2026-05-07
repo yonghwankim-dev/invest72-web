@@ -86,6 +86,7 @@ export function useProducts(){
             setStatistics(response.data);
         }catch(error){
             console.error("Failed to fetch products statistics:", error);
+            setStatistics({});
         }
     }, []);
 
