@@ -5,6 +5,7 @@ import styles from "../Home.module.css";
 import { useProducts, MODES } from "../hooks/useProducts";
 import CreateFinancialProduct from "../components/financial_product/CreateFinancialProduct";
 import DetailedFinancialProduct from "../components/financial_product/DetailedFinancialProduct";
+import DashboardProduct from "../components/financial_product/DashboardProduct";
 
 const parseFormData = (formData)=>{
       const data = Object.fromEntries(formData.entries());
@@ -19,7 +20,7 @@ const parseFormData = (formData)=>{
 export default function FinancialProduct(){
   const {
     mode, setMode, products, selectedProduct, id, setId,
-    fetchProducts, fetchProductDetail, createProduct, updateProduct, deleteProduct, goToReadMode, fetchProductStatistics
+    fetchProducts, fetchProductDetail, createProduct, updateProduct, deleteProduct, goToReadMode, statistics, fetchProductStatistics
   } = useProducts();
   
   useEffect(()=>{
@@ -42,6 +43,7 @@ export default function FinancialProduct(){
       };
       content = 
         <>
+          <DashboardProduct statistics={statistics}/>
           <FinancialProducts products={products} onClickProduct={onClickProduct} />
         </>
       contextController = <nav>
