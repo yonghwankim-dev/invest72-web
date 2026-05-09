@@ -8,6 +8,7 @@ export default function LoginButtons() {
 
         // 백엔드 서버의 OAuth2 엔드포인트로 이동
         window.location.href = `${baseUrl}/oauth2/authorization/${provider}`;
+        
     }
     return (
         <div className="actions">
