@@ -30,6 +30,7 @@ export default function useAuth(){
             setUser(response.data);
             setIsLoggedIn(true);
         }catch(error){
+            console.error(error);
             // 인증 실패 시 상태 초기화
             setUser(null);
             setIsLoggedIn(false);
