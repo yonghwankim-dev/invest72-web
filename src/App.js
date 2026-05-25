@@ -21,9 +21,7 @@ function AppContent(){
   useEffect(()=>{
     // 로그인 성공후 인증 성공 작업 처리
     const initializeAuth = async ()=>{
-      const isLoginSuccess = checkLoginSuccess();
-
-      if(isLoginSuccess){
+      if(checkLoginSuccess()){
         localStorage.setItem("isLoggedIn", "true");
         // 주소창에서 login 쿼리 파라미터를 제거
         window.history.replaceState({}, document.title, window.location.pathname);
