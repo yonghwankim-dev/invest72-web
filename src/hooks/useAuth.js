@@ -22,7 +22,7 @@ export default function useAuth(){
     }, [navigate]);
 
     // 로그인 성공시 호출될 함수
-    const checkAuthStatus = useCallback(async() => {
+    const getUser = useCallback(async() => {
         try{
             const response = await api.get("/api/v1/users/me", {
                 withCredentials: true // 세션 쿠키 포함
@@ -38,8 +38,8 @@ export default function useAuth(){
 
   // 앱 초기 로드시 세션이 살아있는지 확인
     useEffect(()=>{
-        checkAuthStatus();
-    }, [checkAuthStatus]);
+        getUser();
+    }, [getUser]);
 
-  return { user, isLoggedIn, checkAuthStatus, handleLogout };
+  return { user, setUser, isLoggedIn, setIsLoggedIn, getUser, handleLogout };
 }
