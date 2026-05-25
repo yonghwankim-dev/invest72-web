@@ -21,7 +21,7 @@ function AppContent(){
   useEffect(()=>{
     // 로그인 성공후 인증 성공 작업 처리
     const initializeAuth = async ()=>{
-      const isLoginSuccess = parseLoginParam() === "success";
+      const isLoginSuccess = checkLoginSuccess();
 
       if(isLoginSuccess){
         localStorage.setItem("isLoggedIn", "true");
@@ -52,6 +52,10 @@ function AppContent(){
       </Routes>
     </>
   );
+}
+
+function checkLoginSuccess(){
+  return parseLoginParam() === "success";
 }
 
 function hasLoggedInFlag(){
