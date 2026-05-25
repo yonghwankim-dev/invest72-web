@@ -30,7 +30,7 @@ function AppContent(){
       }
 
       // 로컬 스트로지에 로그인 플래그가 있거나 로그인 리다이렉트한 유저만 사용자 프로필 정보를 조회함
-      if(localStorage.getItem("isLoggedIn") === "true" && !localStorage.getItem("user_profile")){
+      if(hasLoggedInFlag() && !localStorage.getItem("user_profile")){
         await getUser();
       }
     };
@@ -52,6 +52,10 @@ function AppContent(){
       </Routes>
     </>
   );
+}
+
+function hasLoggedInFlag(){
+  return localStorage.getItem("isLoggedIn") === "true"
 }
 
 function parseLoginParam(){
