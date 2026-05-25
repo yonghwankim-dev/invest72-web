@@ -17,8 +17,7 @@ function App() {
 
 function AppContent(){
   const [user, setUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { handleLogout } = useAuth();
+  const { isLoggedIn, setIsLoggedIn, handleLogout } = useAuth();
   const [isAuthLoading, setIsAuthLoading] = useState(true)
 
   useEffect(()=>{
@@ -38,7 +37,7 @@ function AppContent(){
       }
     };
     initializeAuth();
-  }, []);
+  }, [setIsLoggedIn]);
 
   // 인증정보가 확인되기 전에는 아무런 UI도 노출하지 않고 전역 로딩만 보여줌
   if(isAuthLoading){

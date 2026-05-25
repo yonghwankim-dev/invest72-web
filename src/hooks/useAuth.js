@@ -41,5 +41,5 @@ export default function useAuth(){
         getUser();
     }, [getUser]);
 
-  return { user, setUser, isLoggedIn, setIsLoggedIn, getUser, handleLogout };
+  return { user, setUser, isLoggedIn, setIsLoggedIn,getUser, handleLogout };
 }
