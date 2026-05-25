@@ -16,7 +16,7 @@ function App() {
 }
 
 function AppContent(){
-  const { user, getUser, isLoggedIn, setIsLoggedIn, isAuthLoading, setIsAuthLoading, handleLogout } = useAuth();
+  const { user, getUser, isLoggedIn, isAuthLoading, handleLogout } = useAuth();
 
   useEffect(()=>{
     // 로그인 성공후 인증 성공 작업 처리
@@ -25,7 +25,6 @@ function AppContent(){
 
       if(isLoginSuccess){
         localStorage.setItem("isLoggedIn", "true");
-        setIsLoggedIn(true);
         // 주소창에서 login 쿼리 파라미터를 제거
         window.history.replaceState({}, document.title, window.location.pathname);
       }
@@ -34,10 +33,9 @@ function AppContent(){
       if(localStorage.getItem("isLoggedIn") === "true" && !localStorage.getItem("user_profile")){
         await getUser();
       }
-      setIsAuthLoading(false);
     };
     initializeAuth();
-  }, [getUser, setIsLoggedIn, setIsAuthLoading]);
+  }, [getUser]);
 
   // 인증정보가 확인되기 전에는 아무런 UI도 노출하지 않고 전역 로딩만 보여줌
   if(isAuthLoading){

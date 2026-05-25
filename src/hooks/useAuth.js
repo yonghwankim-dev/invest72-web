@@ -46,6 +46,8 @@ export default function useAuth(){
             console.error("사용자 프로필 정보 조회 실패", error);
             setUser(null);
             localStorage.removeItem("user_profile");
+        }finally{
+            setIsAuthLoading(false);
         }
     }, []);
   return { user, setUser, getUser, isLoggedIn, setIsLoggedIn, isAuthLoading, setIsAuthLoading, handleLogout };
