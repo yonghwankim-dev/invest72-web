@@ -5,7 +5,7 @@ import NavBar from './components/NavBar';
 import useAuth from './hooks/useAuth';
 import Home from './pages/Home';
 import FinancialProduct from './pages/FianancialProduct';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 function App() {
   return (
     <BrowserRouter>
@@ -15,19 +15,7 @@ function App() {
 }
 
 function AppContent(){
-  const { user, getUser, isLoggedIn, setIsLoggedIn, handleLogout } = useAuth();
-  const [isAuthLoading, setIsAuthLoading] = useState(()=>{
-      const isLoginSuccess = parseLoginParam() === "success";
-      const hasLocalFlag = localStorage.getItem("isLoggedIn") === "true";
-
-      // 로그인 직후 리다이렉트 되었거나 이미 로그인했던 기록이 있다면
-      // 서버에서 user 데이터를 완전히 가져올때까지 true로 유지합니다.
-      if(isLoginSuccess || hasLocalFlag){
-        return true;
-      }
-      // 처음 들어온 비로그인 유저라면 스피너를 출력하지 않습니다.
-      return false;
-  });
+  const { user, getUser, isLoggedIn, setIsLoggedIn, isAuthLoading, setIsAuthLoading, handleLogout } = useAuth();
 
   useEffect(()=>{
     // 로그인 성공후 인증 성공 작업 처리
@@ -64,7 +52,7 @@ function AppContent(){
       }
     };
     initializeAuth();
-  }, [getUser, setIsLoggedIn]);
+  }, [getUser, setIsLoggedIn, setIsAuthLoading]);
 
   // 인증정보가 확인되기 전에는 아무런 UI도 노출하지 않고 전역 로딩만 보여줌
   if(isAuthLoading){

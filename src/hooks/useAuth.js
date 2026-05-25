@@ -8,7 +8,12 @@ export default function useAuth(){
        return cachedUser ? JSON.parse(cachedUser) : null;
     });
     const [isLoggedIn, setIsLoggedIn] = useState(()=>{
-        return localStorage.getItem("isLoggedIn") === "true";
+        const isLogginSuccess = new URLSearchParams(window.location.search).get("login") === "success";
+        const hasLocalFlag = localStorage.getItem("isLoggedIn") === "true";
+        return isLogginSuccess || hasLocalFlag;
+    });
+    const [isAuthLoading, setIsAuthLoading] = useState(()=>{
+        return isLoggedIn && !localStorage.getItem("user_profile");
     });
     
     const navigate = useNavigate();
@@ -43,5 +48,5 @@ export default function useAuth(){
             localStorage.removeItem("user_profile");
         }
     }, []);
-  return { user, setUser, getUser, isLoggedIn, setIsLoggedIn, handleLogout };
+  return { user, setUser, getUser, isLoggedIn, setIsLoggedIn, isAuthLoading, setIsAuthLoading, handleLogout };
 }
