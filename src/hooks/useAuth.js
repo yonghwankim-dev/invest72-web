@@ -21,7 +21,7 @@ export default function useAuth(){
         }        
     }, [navigate]);
 
-    // 로그인 성공시 호출될 함수
+    // 사용자 프로필 정보 조회
     const getUser = useCallback(async() => {
         try{
             const response = await api.get("/api/v1/users/me", {
@@ -41,5 +41,5 @@ export default function useAuth(){
         getUser();
     }, [getUser]);
 
-  return { user, setUser, isLoggedIn, setIsLoggedIn,getUser, handleLogout };
+  return { user, setUser, getUser, isLoggedIn, setIsLoggedIn, handleLogout };
 }
