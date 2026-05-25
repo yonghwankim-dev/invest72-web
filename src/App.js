@@ -17,8 +17,7 @@ function App() {
 function AppContent(){
   const { user, getUser, isLoggedIn, setIsLoggedIn, handleLogout } = useAuth();
   const [isAuthLoading, setIsAuthLoading] = useState(()=>{
-      const searchParams = new URLSearchParams(window.location.search);
-      const isLoginSuccess = searchParams.get("login") === "success";
+      const isLoginSuccess = parseLoginParam() === "success";
       const hasLocalFlag = localStorage.getItem("isLoggedIn") === "true";
 
       // 로그인 직후 리다이렉트 되었거나 이미 로그인했던 기록이 있다면
@@ -31,16 +30,21 @@ function AppContent(){
   });
 
   useEffect(()=>{
+    // 로그인 성공후 인증 성공 작업 처리
     const initializeAuth = async ()=>{
-      // 로그인 성공후 인증 성공 작업 처리
-      const searchParams = new URLSearchParams(window.location.search);
-      const isLoginSuccess = searchParams.get("login") === "success";
+      const isLoginSuccess = parseLoginParam() === "success";
 
       if(isLoginSuccess){
         localStorage.setItem("isLoggedIn", "true");
         setIsLoggedIn(true);
         // 주소창에서 login 쿼리 파라미터를 제거
         window.history.replaceState({}, document.title, window.location.pathname);
+      }
+
+      // 사용자 프로필 정보가 캐싱되어 있다면 API를 호출하지 않음
+      if(localStorage.getItem("user_profile")){
+        setIsAuthLoading(false);
+        return;
       }
 
       // 로컬 스트로지에 로그인 플래그가 있거나 로그인 리다이렉트한 유저만 사용자 프로필 정보를 조회함
@@ -64,12 +68,7 @@ function AppContent(){
 
   // 인증정보가 확인되기 전에는 아무런 UI도 노출하지 않고 전역 로딩만 보여줌
   if(isAuthLoading){
-    return (
-      <div className="globalSplashScreen">
-        <div className="spinner"></div>
-        <p>Invest72 서비스를 준비 중입니다...</p>
-      </div>
-    );
+    return renderSpinner();
   }
 
   return (
@@ -82,6 +81,20 @@ function AppContent(){
       </Routes>
     </>
   );
+}
+
+function parseLoginParam(){
+  const searchParams = new URLSearchParams(window.location.search);
+  return searchParams.get("login");
+}
+
+function renderSpinner(){
+  return (
+      <div className="globalSplashScreen">
+        <div className="spinner"></div>
+        <p>Invest72 서비스를 준비 중입니다...</p>
+      </div>
+  );  
 }
 
 export default App;
