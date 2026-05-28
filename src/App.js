@@ -45,7 +45,11 @@ async function initializeAuth(getUser){
     localStorage.setItem("isLoggedIn", "true");
     localStorage.removeItem("user_profile");
     // 주소창에서 login 쿼리 파라미터를 제거
-    window.history.replaceState({}, document.title, window.location.pathname);
+    const params = new URLSearchParams(window.location.search);
+    params.delete("login");
+    const newSearch = params.toString();
+    const newPath = window.location.pathname + (newSearch ? `${newSearch}` : "");
+    window.history.replaceState({}, document.title, newPath);
   }
 
   if(hasLoggedInFlag()){
