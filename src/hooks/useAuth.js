@@ -59,10 +59,12 @@ export default function useAuth(){
             localStorage.setItem("user_profile", JSON.stringify(response.data));
         }catch(error){
             console.error("사용자 프로필 정보 조회 실패", error);
-            setUser(null);
-            setIsLoggedIn(false);
-            localStorage.removeItem("isLoggedIn");
-            localStorage.removeItem("user_profile");
+            if(error.status === 401 || error.status === 403){
+                setUser(null);
+                setIsLoggedIn(false);
+                localStorage.removeItem("isLoggedIn");
+                localStorage.removeItem("user_profile");
+            }
         }finally{
             setIsAuthLoading(false);
         }
