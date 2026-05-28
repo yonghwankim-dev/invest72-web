@@ -43,12 +43,13 @@ function AppContent(){
 async function initializeAuth(getUser){
   if(checkLoginSuccess()){
     localStorage.setItem("isLoggedIn", "true");
+    localStorage.removeItem("user_profile");
     // 주소창에서 login 쿼리 파라미터를 제거
     window.history.replaceState({}, document.title, window.location.pathname);
   }
 
   // 로컬 스트로지에 로그인 플래그가 있거나 로그인 리다이렉트한 유저만 사용자 프로필 정보를 조회함
-  if(hasLoggedInFlag() && !hasUserProfileData()){
+  if(hasLoggedInFlag()){
     await getUser();
   }
 }
@@ -59,10 +60,6 @@ function checkLoginSuccess(){
 
 function hasLoggedInFlag(){
   return localStorage.getItem("isLoggedIn") === "true"
-}
-
-function hasUserProfileData(){
-  return localStorage.getItem("user_profile");
 }
 
 function parseLoginParam(){
