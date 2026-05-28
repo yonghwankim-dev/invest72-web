@@ -48,7 +48,6 @@ async function initializeAuth(getUser){
     window.history.replaceState({}, document.title, window.location.pathname);
   }
 
-  // 로컬 스트로지에 로그인 플래그가 있거나 로그인 리다이렉트한 유저만 사용자 프로필 정보를 조회함
   if(hasLoggedInFlag()){
     await getUser();
   }
