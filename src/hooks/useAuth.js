@@ -24,6 +24,10 @@ export default function useAuth(){
         return isLoginSuccess || hasLocalFlag;
     });
     const [isAuthLoading, setIsAuthLoading] = useState(()=>{
+        const isLoginSuccess = new URLSearchParams(window.location.search).get("login") === "success";
+        if(isLoginSuccess){
+            return true;
+        }
         return isLoggedIn && !localStorage.getItem("user_profile");
     });
     
