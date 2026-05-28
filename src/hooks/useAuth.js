@@ -4,13 +4,18 @@ import { useNavigate } from "react-router-dom";
 
 export default function useAuth(){
     const [user, setUser] = useState(()=>{
-       const cachedUser = localStorage.getItem("user_profile");
-       return cachedUser ? JSON.parse(cachedUser) : null;
+        const isLoginSuccess = new URLSearchParams(window.location.search).get("login") === "success";
+        if(isLoginSuccess){
+            localStorage.removeItem("user_profile");
+            return null;
+        }
+        const cachedUser = localStorage.getItem("user_profile");
+        return cachedUser ? JSON.parse(cachedUser) : null;
     });
     const [isLoggedIn, setIsLoggedIn] = useState(()=>{
-        const isLogginSuccess = new URLSearchParams(window.location.search).get("login") === "success";
+        const isLoginSuccess = new URLSearchParams(window.location.search).get("login") === "success";
         const hasLocalFlag = localStorage.getItem("isLoggedIn") === "true";
-        return isLogginSuccess || hasLocalFlag;
+        return isLoginSuccess || hasLocalFlag;
     });
     const [isAuthLoading, setIsAuthLoading] = useState(()=>{
         return isLoggedIn && !localStorage.getItem("user_profile");
