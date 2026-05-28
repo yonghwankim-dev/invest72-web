@@ -44,17 +44,20 @@ async function initializeAuth(getUser){
   if(checkLoginSuccess()){
     localStorage.setItem("isLoggedIn", "true");
     localStorage.removeItem("user_profile");
-    // 주소창에서 login 쿼리 파라미터를 제거
-    const params = new URLSearchParams(window.location.search);
-    params.delete("login");
-    const newSearch = params.toString();
-    const newPath = window.location.pathname + (newSearch ? `${newSearch}` : "");
-    window.history.replaceState({}, document.title, newPath);
+    deleteLoginParams();
   }
 
   if(hasLoggedInFlag()){
     await getUser();
   }
+}
+
+function deleteLoginParams(){
+  const params = new URLSearchParams(window.location.search);
+  params.delete("login");
+  const newSearch = params.toString();
+  const newPath = window.location.pathname + (newSearch ? `${newSearch}` : "");
+  window.history.replaceState({}, document.title, newPath);
 }
 
 function checkLoginSuccess(){
