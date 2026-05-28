@@ -6,11 +6,17 @@ export default function useAuth(){
     const [user, setUser] = useState(()=>{
         const isLoginSuccess = new URLSearchParams(window.location.search).get("login") === "success";
         if(isLoginSuccess){
-            localStorage.removeItem("user_profile");
             return null;
         }
         const cachedUser = localStorage.getItem("user_profile");
-        return cachedUser ? JSON.parse(cachedUser) : null;
+        if(cachedUser){
+            try{
+                return JSON.parse(cachedUser);
+            }catch(error){
+                console.error("캐싱된 사용자 프로필 파싱 실패:", error);
+            }
+        }
+        return null;
     });
     const [isLoggedIn, setIsLoggedIn] = useState(()=>{
         const isLoginSuccess = new URLSearchParams(window.location.search).get("login") === "success";
