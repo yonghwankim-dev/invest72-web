@@ -14,19 +14,24 @@ export function useProducts(){
     const [mode, setMode] = useState(MODES.READ);
     const [id, setId] = useState(null);
     const [statistics, setStatistics] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     // 상품 목록 조회
     const fetchProducts = useCallback(async()=>{
+        setIsLoading(true);
         try{
-        const response = await api.get("/api/v1/products");
-        setProducts(response.data);
+            const response = await api.get("/api/v1/products");
+            setProducts(response.data);
         }catch(error){
             console.error("Failed to fetch products:", error);
+        }finally{
+            setIsLoading(false);
         }
-    }, []);
+    }, [setIsLoading]);
 
     // 상품 상세 조회
     const fetchProductDetail = useCallback(async(productId)=>{
+        setIsLoading(true);
         try{
             const response = await api.get(`/api/v1/products/${productId}`);
             setSelectedProduct(response.data);
@@ -35,8 +40,10 @@ export function useProducts(){
         }catch(error){
             console.error("Failed to fetch product details:", error);
             setMode(MODES.READ);
+        }finally{
+            setIsLoading(false);
         }
-    }, []);
+    }, [setIsLoading]);
 
     // 상품 생성
     const createProduct = useCallback(async (data)=>{
@@ -81,12 +88,15 @@ export function useProducts(){
 
     // 상품 통계 조회
     const fetchProductStatistics = useCallback(async ()=>{
+        setIsLoading(true);
         try{
             const response = await api.get("/api/v1/products/statistics");
             setStatistics(response.data);
         }catch(error){
             console.error("Failed to fetch products statistics:", error);
             setStatistics({});
+        }finally{
+            setIsLoading(false);
         }
     }, []);
 
@@ -111,6 +121,8 @@ export function useProducts(){
         deleteProduct,
         goToReadMode,
         statistics,
-        fetchProductStatistics
+        fetchProductStatistics,
+        isLoading,
+        setIsLoading
     };
 }

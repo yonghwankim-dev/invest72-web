@@ -6,6 +6,7 @@ import { useProducts, MODES } from "../hooks/useProducts";
 import CreateFinancialProduct from "../components/financial_product/CreateFinancialProduct";
 import DetailedFinancialProduct from "../components/financial_product/DetailedFinancialProduct";
 import DashboardProduct from "../components/financial_product/DashboardProduct";
+import Spinner from "../components/Spinner";
 
 const parseFormData = (formData)=>{
       const data = Object.fromEntries(formData.entries());
@@ -20,7 +21,8 @@ const parseFormData = (formData)=>{
 export default function FinancialProduct(){
   const {
     mode, setMode, products, selectedProduct, id, setId,
-    fetchProducts, fetchProductDetail, createProduct, updateProduct, deleteProduct, goToReadMode, statistics, fetchProductStatistics
+    fetchProducts, fetchProductDetail, createProduct, updateProduct, deleteProduct, goToReadMode, statistics, fetchProductStatistics,
+    isLoading
   } = useProducts();
   
   useEffect(()=>{
@@ -78,6 +80,11 @@ export default function FinancialProduct(){
     default:
       content = <div>로딩 중...</div>;
   };
+
+
+  if(isLoading){
+    return <Spinner/>
+  }
 
   return (
     <div className={`${styles.page} ${mode === MODES.READ ? styles.pageWide : ""}`}>
