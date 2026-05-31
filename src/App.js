@@ -9,7 +9,6 @@ function App() {
 }
 
 function AppContent(){
-
   return (
     <>
       <BrowserRouter>
@@ -34,14 +33,6 @@ function AppContent(){
 //   if(hasLoggedInFlag()){
 //     await getUser();
 //   }
-// }
-
-// function deleteLoginParams(){
-//   const params = new URLSearchParams(window.location.search);
-//   params.delete("login");
-//   const newSearch = params.toString();
-//   const newPath = window.location.pathname + (newSearch ? `${newSearch}` : "");
-//   window.history.replaceState({}, document.title, newPath);
 // }
 
 // function checkLoginSuccess(){
