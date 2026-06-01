@@ -52,15 +52,15 @@ export function useProducts(){
         try{
             await api.post("/api/v1/products", data);
             alert("상품이 성공적으로 생성되었습니다.");
-            setMode(MODES.READ);
-            fetchProducts();
+            return true;
         }catch(error){
             console.error("Failed to create product:", error);
             alert("상품 생성에 실패했습니다.");
         }finally{
             setIsMutationLoading(false);
         }
-    },[fetchProducts, setIsMutationLoading]);
+        return false;
+    },[setIsMutationLoading]);
 
     // 상품 수정
     const updateProduct = useCallback(async (productId, data)=>{
