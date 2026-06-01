@@ -36,13 +36,11 @@ export function useProducts(){
         try{
             const response = await api.get(`/api/v1/products/${productId}`);
             setSelectedProduct(response.data);
-            return true;
         }catch(error){
             console.error("Failed to fetch product details:", error);
         }finally{
             setIsFetchLoading(false);
         }
-        return false;
     }, [setIsFetchLoading]);
 
     // 상품 생성
