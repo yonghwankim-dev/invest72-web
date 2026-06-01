@@ -69,6 +69,10 @@ export default function useAuth(){
     }, [navigate]);
 
     useEffect(()=>{
+        if(isLoginSuccess){
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.removeItem("user_profile");
+        }
         const hasLocalFlag = localStorage.getItem("isLoggedIn") === "true";
 
         if(isLoginSuccess || (hasLocalFlag && !user)){
