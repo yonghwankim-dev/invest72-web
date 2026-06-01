@@ -14,24 +14,25 @@ export function useProducts(){
     const [mode, setMode] = useState(MODES.READ);
     const [id, setId] = useState(null);
     const [statistics, setStatistics] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isFetchLoading, setIsFetchLoading] = useState(true); // 목록/상세 조회용
+    const [isMutationLoading, setIsMutationLoading] = useState(false); // 생성/수정/삭제 작업용
 
     // 상품 목록 조회
     const fetchProducts = useCallback(async()=>{
-        setIsLoading(true);
+        setIsFetchLoading(true);
         try{
             const response = await api.get("/api/v1/products");
             setProducts(response.data);
         }catch(error){
             console.error("Failed to fetch products:", error);
         }finally{
-            setIsLoading(false);
+            setIsFetchLoading(false);
         }
-    }, [setIsLoading]);
+    }, [setIsFetchLoading]);
 
     // 상품 상세 조회
     const fetchProductDetail = useCallback(async(productId)=>{
-        setIsLoading(true);
+        setIsFetchLoading(true);
         try{
             const response = await api.get(`/api/v1/products/${productId}`);
             setSelectedProduct(response.data);
@@ -41,12 +42,13 @@ export function useProducts(){
             console.error("Failed to fetch product details:", error);
             setMode(MODES.READ);
         }finally{
-            setIsLoading(false);
+            setIsFetchLoading(false);
         }
-    }, [setIsLoading]);
+    }, [setIsFetchLoading]);
 
     // 상품 생성
     const createProduct = useCallback(async (data)=>{
+        setIsMutationLoading(true);
         try{
             await api.post("/api/v1/products", data);
             alert("상품이 성공적으로 생성되었습니다.");
@@ -55,11 +57,14 @@ export function useProducts(){
         }catch(error){
             console.error("Failed to create product:", error);
             alert("상품 생성에 실패했습니다.");
+        }finally{
+            setIsMutationLoading(false);
         }
-    },[fetchProducts]);
+    },[fetchProducts, setIsMutationLoading]);
 
     // 상품 수정
     const updateProduct = useCallback(async (productId, data)=>{
+        setIsMutationLoading(true);
         try{
             await api.put(`/api/v1/products/${productId}`, data);
             alert("상품이 성공적으로 수정되었습니다.");
@@ -67,14 +72,17 @@ export function useProducts(){
         }catch(error){
             console.error("Failed to edit product:", error);
             alert("상품 수정에 실패했습니다.");
+        }finally{
+            setIsMutationLoading(false);
         }
-    },[fetchProductDetail]);
+    },[fetchProductDetail, setIsMutationLoading]);
 
     // 상품 삭제
     const deleteProduct = useCallback(async (productId)=>{
         if(!window.confirm("정말로 이 상품을 삭제하시겠습니까?")){
             return;
         }
+        setIsMutationLoading(true);
         try{
             await api.delete(`/api/v1/products/${productId}`);
             alert("상품이 성공적으로 삭제되었습니다.");
@@ -83,12 +91,14 @@ export function useProducts(){
         }catch(error){
             console.error("Failed to delete product:", error);
             alert("상품 삭제에 실패했습니다.");
+        }finally{
+            setIsMutationLoading(false);
         }
-    },[fetchProducts]);
+    },[fetchProducts, setIsMutationLoading]);
 
     // 상품 통계 조회
     const fetchProductStatistics = useCallback(async ()=>{
-        setIsLoading(true);
+        setIsFetchLoading(true);
         try{
             const response = await api.get("/api/v1/products/statistics");
             setStatistics(response.data);
@@ -96,7 +106,7 @@ export function useProducts(){
             console.error("Failed to fetch products statistics:", error);
             setStatistics({});
         }finally{
-            setIsLoading(false);
+            setIsFetchLoading(false);
         }
     }, []);
 
@@ -122,7 +132,7 @@ export function useProducts(){
         goToReadMode,
         statistics,
         fetchProductStatistics,
-        isLoading,
-        setIsLoading
+        isFetchLoading,
+        isMutationLoading
     };
 }
