@@ -36,11 +36,8 @@ export function useProducts(){
         try{
             const response = await api.get(`/api/v1/products/${productId}`);
             setSelectedProduct(response.data);
-            setId(productId);
-            setMode(MODES.DETAIL);
         }catch(error){
             console.error("Failed to fetch product details:", error);
-            setMode(MODES.READ);
         }finally{
             setIsFetchLoading(false);
         }
@@ -68,14 +65,15 @@ export function useProducts(){
         try{
             await api.put(`/api/v1/products/${productId}`, data);
             alert("상품이 성공적으로 수정되었습니다.");
-            fetchProductDetail(productId); // 수정 후 상세 정보 갱신
+            return true;
         }catch(error){
             console.error("Failed to edit product:", error);
             alert("상품 수정에 실패했습니다.");
         }finally{
             setIsMutationLoading(false);
         }
-    },[fetchProductDetail, setIsMutationLoading]);
+        return false;
+    },[setIsMutationLoading]);
 
     // 상품 삭제
     const deleteProduct = useCallback(async (productId)=>{
