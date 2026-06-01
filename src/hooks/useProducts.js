@@ -98,15 +98,12 @@ export function useProducts(){
 
     // 상품 통계 조회
     const fetchProductStatistics = useCallback(async ()=>{
-        setIsFetchLoading(true);
         try{
             const response = await api.get("/api/v1/products/statistics");
             setStatistics(response.data);
         }catch(error){
             console.error("Failed to fetch products statistics:", error);
             setStatistics({});
-        }finally{
-            setIsFetchLoading(false);
         }
     }, []);
 
