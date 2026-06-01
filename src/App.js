@@ -4,21 +4,32 @@ import Login from './pages/Login';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import FinancialProduct from './pages/FianancialProduct';
+import Spinner from './components/Spinner';
+import useAuth from './hooks/useAuth';
 function App() {
-  return <AppContent />
+  
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  );
 }
 
 function AppContent(){
+  const { user, isLoggedIn, isAuthLoading, handleLogout } = useAuth();
+
+  if(isAuthLoading){
+    return <Spinner/>
+  }
+
   return (
     <>
-      <BrowserRouter>
-        <NavBar/>
-        <Routes>
-            <Route path="/" element={<Home />}/>
-            <Route path="/products" element={<FinancialProduct />}/>
-            <Route path="/login" element={<Login/>}/>
-        </Routes>
-      </BrowserRouter>
+      <NavBar user={user} isLoggedIn={isLoggedIn} isAuthLoading={isAuthLoading} handleLogout={handleLogout}/>
+      <Routes>
+          <Route path="/" element={<Home />}/>
+          <Route path="/products" element={isLoggedIn ? <FinancialProduct /> : <Login/>}/>
+          <Route path="/login" element={<Login/>}/>
+      </Routes>
     </>
   );
 }

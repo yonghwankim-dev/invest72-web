@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import "../NavBar.css";
-import useAuth from "../hooks/useAuth";
-import Spinner from "./Spinner";
 
 function UserNavigation({user, handleLogout}){
   return (
@@ -28,13 +26,8 @@ function GuestNavigation(){
   );
 }
 
-export default function NavBar(){
-    const { user, isLoggedIn, isAuthLoading, handleLogout } = useAuth();
+export default function NavBar({ user, isLoggedIn, isAuthLoading, handleLogout }){
     const content = isLoggedIn ? <UserNavigation user={user} handleLogout={handleLogout}/> : <GuestNavigation/>
-
-    if(isAuthLoading){
-      return <Spinner/>
-    }
 
     return (
       <nav className="navBar">
