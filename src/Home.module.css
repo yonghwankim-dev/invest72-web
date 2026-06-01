@@ -34,20 +34,3 @@
 	background: #f5f7fb;
 	border-color: #c5ccd8;
 }
-
-
-.overlaySpinner{
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background-color: rgba(255, 255, 255, 0.65); /* 💡 흰색 바탕에 65% 반투명 적용 */
-    backdrop-filter: blur(1px); /* 뒤쪽 상품 화면을 살짝 흐리게 처리하는 고급 효과 */
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	z-index: 9999; /* 최상단에 위치 */
-	font-family: sans-serif;
-}
