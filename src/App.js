@@ -23,29 +23,4 @@ function AppContent(){
   );
 }
 
-// async function initializeAuth(getUser){
-//   if(checkLoginSuccess()){
-//     localStorage.setItem("isLoggedIn", "true");
-//     localStorage.removeItem("user_profile");
-//     deleteLoginParams();
-//   }
-
-//   if(hasLoggedInFlag()){
-//     await getUser();
-//   }
-// }
-
-// function checkLoginSuccess(){
-//   return parseLoginParam() === "success";
-// }
-
-// function hasLoggedInFlag(){
-//   return localStorage.getItem("isLoggedIn") === "true"
-// }
-
-// function parseLoginParam(){
-//   const searchParams = new URLSearchParams(window.location.search);
-//   return searchParams.get("login");
-// }
-
 export default App;
