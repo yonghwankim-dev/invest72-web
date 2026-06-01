@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { INTEREST_TYPE_CONFIG, INVESTMENT_TYPE_CONFIG, TAX_CONFIG } from "../../constants";
+import { INTEREST_TYPE_CONFIG, INVESTMENT_TYPE_CONFIG, TAX_CONFIG } from "../constants";
 
 
-export default function EditFinancialProduct({product, onEdit, onCancel}){
+export default function FinancialProductEditPage({product, onEdit, onCancel}){
         const [taxSettings, setTaxSettings] = useState(()=>{
             // 기존 상품의 taxType에 맞는 설정을 가져옴(없으면 STANDARD)
             const currentTaxConfig = TAX_CONFIG[product?.taxType] || TAX_CONFIG.STANDARD;

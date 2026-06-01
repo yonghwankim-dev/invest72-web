@@ -1,7 +1,7 @@
-import { INVESTMENT_TYPE_CONFIG } from "../../constants";
-import { formatPercent, isNoExpiration } from "../../utils/utils";
+import { INVESTMENT_TYPE_CONFIG } from "../constants";
+import { formatPercent, isNoExpiration } from "../utils/utils";
 
-export default function FinancialProducts({products, onClickProduct}){
+export default function FinancialProductListPage({products, onClickProduct}){
     const handleProductClick = (e, productId) => {
         e.preventDefault();
         onClickProduct(productId);

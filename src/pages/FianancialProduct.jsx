@@ -1,13 +1,13 @@
-import FinancialProducts from "../components/financial_product/FinancialProducts";
 import { useEffect } from "react";
-import EditFinancialProduct from "../components/financial_product/EditFinancialProduct";
 import styles from "../Home.module.css";
 import { useProducts, MODES } from "../hooks/useProducts";
-import CreateFinancialProduct from "../components/financial_product/CreateFinancialProduct";
-import DetailedFinancialProduct from "../components/financial_product/DetailedFinancialProduct";
 import DashboardProduct from "../components/financial_product/DashboardProduct";
 import Spinner from "../components/Spinner";
 import OverlaySpinner from "../components/OverlaySpinner";
+import FinancialProductCreatePage from "./FinancialProductCreatePage";
+import FinancialProductEditPage from "./FinancialProductEditPage";
+import FinancialProductDetailedPage from "./FinancialProductDetailedPage";
+import FinancialProductListPage from "./FinancialProductListPage";
 
 const parseFormData = (formData)=>{
       const data = Object.fromEntries(formData.entries());
@@ -47,7 +47,7 @@ export default function FinancialProduct(){
       content = 
         <>
           <DashboardProduct statistics={statistics}/>
-          <FinancialProducts products={products} onClickProduct={onClickProduct} />
+          <FinancialProductListPage products={products} onClickProduct={onClickProduct} />
         </>
       contextController = <nav>
         <button onClick={() => setMode(MODES.CREATE)}>상품 등록</button>
@@ -55,7 +55,7 @@ export default function FinancialProduct(){
       break;
     case MODES.DETAIL:
       // DETAIL 모드에 대한 처리 (예: 상품 상세 보기)
-      content = <DetailedFinancialProduct product={selectedProduct}/>;
+      content = <FinancialProductDetailedPage product={selectedProduct}/>;
       contextController = <nav>
         <button onClick={() => setMode(MODES.EDIT)}>상품 수정</button>
         <button onClick={() => deleteProduct(id)}>상품 삭제</button>
@@ -67,7 +67,7 @@ export default function FinancialProduct(){
         event.preventDefault();
         createProduct(parseFormData(new FormData(event.target)));
       }
-      content = <CreateFinancialProduct onCreate={onCreate} onCancel={() => goToReadMode()}/>;
+      content = <FinancialProductCreatePage onCreate={onCreate} onCancel={() => goToReadMode()}/>;
       break;
     case MODES.EDIT:
       // EDIT 모드에 대한 처리 (예: 상품 수정 폼)
@@ -76,7 +76,7 @@ export default function FinancialProduct(){
         const data = parseFormData(new FormData(event.target));
         updateProduct(id, data);
       }
-      content = <EditFinancialProduct product={selectedProduct} onEdit={onEdit} onCancel={() => setMode(MODES.DETAIL)}/>;    
+      content = <FinancialProductEditPage product={selectedProduct} onEdit={onEdit} onCancel={() => setMode(MODES.DETAIL)}/>;    
       break;
     default:
       content = <div>로딩 중...</div>;

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import api from "../../api/axios";
-import FinancialProductCalculationResult from "./FinancialProductCalculationResult";
-import {INTEREST_TYPE_CONFIG, INVESTMENT_TYPE_CONFIG, TAX_CONFIG} from "../../constants";
-import { formatPercent } from "../../utils/utils";
+import api from "../api/axios";
+import FinancialProductCalculationResult from "../components/financial_product/FinancialProductCalculationResult";
+import {INTEREST_TYPE_CONFIG, INVESTMENT_TYPE_CONFIG, TAX_CONFIG} from "../constants";
+import { formatPercent } from "../utils/utils";
 
-export default function DetailedFinancialProduct({product}){
+export default function FinancialProductDetailedPage({product}){
     const [calculationResult, setCalculationResult] = useState(null);
 
     // 수익 계산 API 호출

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { INTEREST_TYPE_CONFIG, INVESTMENT_TYPE_CONFIG, TAX_CONFIG } from "../../constants";
+import { INTEREST_TYPE_CONFIG, INVESTMENT_TYPE_CONFIG, TAX_CONFIG } from "../constants";
 
-export default function CreateFinancialProduct({onCreate, onCancel}){
+export default function FinancialProductCreatePage({onCreate, onCancel}){
     const [investmentType, setInvestmentType] = useState(INVESTMENT_TYPE_CONFIG.NONE.name);
     const [taxSettings, setTaxSettings] = useState(TAX_CONFIG.STANDARD);
     
