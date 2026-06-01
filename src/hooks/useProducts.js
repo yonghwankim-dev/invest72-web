@@ -86,15 +86,15 @@ export function useProducts(){
         try{
             await api.delete(`/api/v1/products/${productId}`);
             alert("상품이 성공적으로 삭제되었습니다.");
-            goToReadMode();
-            fetchProducts(); // 목록 새로고침
+            return true;
         }catch(error){
             console.error("Failed to delete product:", error);
             alert("상품 삭제에 실패했습니다.");
         }finally{
             setIsMutationLoading(false);
         }
-    },[fetchProducts, setIsMutationLoading]);
+        return false;
+    },[setIsMutationLoading]);
 
     // 상품 통계 조회
     const fetchProductStatistics = useCallback(async ()=>{
