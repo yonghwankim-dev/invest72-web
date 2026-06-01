@@ -6,6 +6,8 @@ import { useProducts, MODES } from "../hooks/useProducts";
 import CreateFinancialProduct from "../components/financial_product/CreateFinancialProduct";
 import DetailedFinancialProduct from "../components/financial_product/DetailedFinancialProduct";
 import DashboardProduct from "../components/financial_product/DashboardProduct";
+import Spinner from "../components/Spinner";
+import OverlaySpinner from "../components/OverlaySpinner";
 
 const parseFormData = (formData)=>{
       const data = Object.fromEntries(formData.entries());
@@ -20,7 +22,8 @@ const parseFormData = (formData)=>{
 export default function FinancialProduct(){
   const {
     mode, setMode, products, selectedProduct, id, setId,
-    fetchProducts, fetchProductDetail, createProduct, updateProduct, deleteProduct, goToReadMode, statistics, fetchProductStatistics
+    fetchProducts, fetchProductDetail, createProduct, updateProduct, deleteProduct, goToReadMode, statistics, fetchProductStatistics,
+    isFetchLoading, isMutationLoading
   } = useProducts();
   
   useEffect(()=>{
@@ -79,8 +82,17 @@ export default function FinancialProduct(){
       content = <div>로딩 중...</div>;
   };
 
+  if(isFetchLoading){
+    return <Spinner/>
+  }
+
   return (
     <div className={`${styles.page} ${mode === MODES.READ ? styles.pageWide : ""}`}>
+      {/* 🚨 반투명 스피너 가드: 로딩 중일 때 기존 화면을 지우지 않고 그 위에 '오버레이'로 올립니다. */}
+      {isMutationLoading && (
+        <OverlaySpinner/>
+      )}
+
       <div className={styles.content}>{content}</div>
       <div className={styles.controllerArea}>
         {contextController}
