@@ -13,9 +13,13 @@ export default function FinancialProductDetailedPage({product}){
     
     useEffect(()=>{
         if(id){
-            fetchProductDetail(id);
+            const success = fetchProductDetail(id);
+            alert("존재하지 않는 상품입니다.");
+            if(success !== true){
+                navigate("/products");
+            }
         }
-    },[id, fetchProductDetail]);
+    },[id, fetchProductDetail, navigate]);
 
     if(isFetchLoading){
         return <Spinner/>
