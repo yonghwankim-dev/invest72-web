@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { INVESTMENT_TYPE_CONFIG } from "../../constants";
 import { formatPercent, isNoExpiration } from "../../utils/utils";
 
@@ -7,9 +8,7 @@ export default function FinancialProducts({products}){
         .map(product=>{
             return <tr key={product.id}>
                     <td>
-                        <a className="tableLink" href={`/products/${product.id}`}>
-                            {product.name}
-                        </a>
+                        <Link className="tableLink" to={`/products/${product.id}`}>{product.name}</Link>
                     </td>
                     <td>{INVESTMENT_TYPE_CONFIG[product.investmentType].title}</td>
                     <td>{formatPercent(product.interestRate)}</td>
