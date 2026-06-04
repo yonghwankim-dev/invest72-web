@@ -3,6 +3,7 @@ import CreateFinancialProduct from "../components/financial_product/CreateFinanc
 import Spinner from "../components/Spinner";
 import styles from "../Home.module.css"
 import { useProducts } from "../hooks/useProducts";
+import { parseFinancialProductForm } from "../utils/utils";
 
 export default function FinancialProductCreatePage(){
     const {createProduct, isMutationLoading} = useProducts();
@@ -10,7 +11,8 @@ export default function FinancialProductCreatePage(){
 
     const onCreate = async (event) => {
         event.preventDefault();
-        const success = await createProduct(parseFormData(new FormData(event.target)));
+        
+        const success = await createProduct(parseFinancialProductForm(new FormData(event.target)));
         if(success){
             navigate("/products");
         }
@@ -25,14 +27,3 @@ export default function FinancialProductCreatePage(){
         </div>
     );
 }
-
-
-const parseFormData = (formData)=>{
-    const data = Object.fromEntries(formData.entries());
-    // 숫자 필드 변환
-    data.amount = parseFloat(data.amount);
-    data.months = parseInt(data.months);
-    data.interestRate = parseFloat(data.interestRate / 100); // 사용자 입력이 퍼센트이므로 100으로 나누어 소수로 변환
-    data.taxRate = parseFloat(data.taxRate / 100); // 사용자 입력이 퍼센트이므로 100으로 나누어 소수로 변환
-    return data;
-};

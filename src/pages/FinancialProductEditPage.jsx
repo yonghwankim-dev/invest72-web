@@ -4,6 +4,7 @@ import Spinner from "../components/Spinner";
 import styles from "../Home.module.css"
 import { useProducts } from "../hooks/useProducts";
 import { useEffect } from "react";
+import { parseFinancialProductForm } from "../utils/utils";
 
 
 export default function FinancialProductEditPage(){
@@ -17,7 +18,7 @@ export default function FinancialProductEditPage(){
 
     const onEdit = async (event) => {
         event.preventDefault();
-        const success = await updateProduct(id, parseFormData(new FormData(event.target)));
+        const success = await updateProduct(id, parseFinancialProductForm(new FormData(event.target)));
         if(success){
             navigate("/products");
         }
@@ -36,12 +37,3 @@ export default function FinancialProductEditPage(){
         </div>
     );
 }
-const parseFormData = (formData)=>{
-    const data = Object.fromEntries(formData.entries());
-    // 숫자 필드 변환
-    data.amount = parseFloat(data.amount);
-    data.months = parseInt(data.months);
-    data.interestRate = parseFloat(data.interestRate / 100); // 사용자 입력이 퍼센트이므로 100으로 나누어 소수로 변환
-    data.taxRate = parseFloat(data.taxRate / 100); // 사용자 입력이 퍼센트이므로 100으로 나누어 소수로 변환
-    return data;
-};
