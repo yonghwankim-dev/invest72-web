@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import OverlaySpinner from "../components/OverlaySpinner";
 
-export default function FinancialProductDetailedPage({product}){
+export default function FinancialProductDetailedPage(){
     const { id } = useParams();
     const { selectedProduct, fetchProductDetail, isFetchLoading, deleteProduct, isMutationLoading} = useProducts();
     const navigate = useNavigate();
