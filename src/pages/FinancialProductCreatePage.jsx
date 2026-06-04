@@ -10,7 +10,7 @@ export default function FinancialProductCreatePage(){
 
     const onCreate = async (event) => {
         event.preventDefault();
-        const success = createProduct(parseFormData(new FormData(event.target)));
+        const success = await createProduct(parseFormData(new FormData(event.target)));
         if(success){
             navigate("/products");
         }
