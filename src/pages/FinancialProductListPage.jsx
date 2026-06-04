@@ -24,8 +24,7 @@ export default function FinancialProductListPage(){
             <div className={styles.content}>
                 <DashboardProduct statistics={statistics} />
                 {/* 상품 클릭 시 해당 상품의 고유 ID 페이지 경로로 이동시킵니다. */}
-                <FinancialProducts products={products} onClickProduct={(id) => navigate(`/products/${id}`)} 
-                />
+                <FinancialProducts products={products} />
             </div>
             <div className={styles.controllerArea}>
                 <nav><button onClick={() => navigate("/products/new")}>상품 등록</button></nav>
