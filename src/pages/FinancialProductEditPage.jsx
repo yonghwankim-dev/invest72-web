@@ -17,7 +17,7 @@ export default function FinancialProductEditPage(){
 
     const onEdit = async (event) => {
         event.preventDefault();
-        const success = updateProduct(id, parseFormData(new FormData(event.target)));
+        const success = await updateProduct(id, parseFormData(new FormData(event.target)));
         if(success){
             navigate("/products");
         }
