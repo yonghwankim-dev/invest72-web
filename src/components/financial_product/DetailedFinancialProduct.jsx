@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import { INTEREST_TYPE_CONFIG, INVESTMENT_TYPE_CONFIG, TAX_CONFIG } from "../../constants";
 import api from "../../api/axios";
-import FinancialProductCalculationResult from "./FinancialProductCalculationResult";
-import {INTEREST_TYPE_CONFIG, INVESTMENT_TYPE_CONFIG, TAX_CONFIG} from "../../constants";
 import { formatPercent } from "../../utils/utils";
+import FinancialProductCalculationResult from "./FinancialProductCalculationResult";
 
 export default function DetailedFinancialProduct({product}){
     const [calculationResult, setCalculationResult] = useState(null);
