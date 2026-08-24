@@ -20,6 +20,7 @@ export default function useAuth(){
             return userJson ? JSON.parse(userJson) : null;
         }catch(error){
             console.error("캐싱된 사용자 프로필 파싱 실패:", error);
+            return null;
         }
     });
 
@@ -29,6 +30,14 @@ export default function useAuth(){
         }
         return isLoggedIn && !localStorage.getItem("user_profile");
     });
+
+    // 인증 상태 초기화 헬퍼 함수
+    const clearAuthStatus = useCallback(()=>{
+        setUser(null);
+        setIsLoggedIn(false);
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("user_profile");
+    }, []);
     
     // 사용자 프로필 정보 조회
     const getUser = useCallback(async() => {
@@ -40,16 +49,14 @@ export default function useAuth(){
             localStorage.setItem("user_profile", JSON.stringify(response.data));
         }catch(error){
             console.error("사용자 프로필 정보 조회 실패", error);
-            if(error.status === 401 || error.status === 403){
-                setUser(null);
-                setIsLoggedIn(false);
-                localStorage.removeItem("isLoggedIn");
-                localStorage.removeItem("user_profile");
+            const status = error.response?.status;
+            if(status === 401 || status === 403 || !status){
+                clearAuthStatus();
             }
         }finally{
             setIsAuthLoading(false);
         }
-    }, []);
+    }, [clearAuthStatus]);
 
 
     // 로그아웃 처리 함수
@@ -59,14 +66,10 @@ export default function useAuth(){
         }catch(error){
             console.error("로그아웃 실패:", error);
         }finally{
-            // 서버 요청이 실패하더라도 클라이언트 상태는 초기화하여 로그아웃 처리
-            setUser(null);
-            setIsLoggedIn(false);
-            localStorage.removeItem("isLoggedIn");
-            localStorage.removeItem("user_profile");
+            clearAuthStatus();
             navigate("/login"); // 로그아웃 후 로그인 페이지로 이동
         }        
-    }, [navigate]);
+    }, [clearAuthStatus, navigate]);
 
     useEffect(()=>{
         if(isLoginSuccess){
@@ -75,11 +78,14 @@ export default function useAuth(){
         }
         const hasLocalFlag = localStorage.getItem("isLoggedIn") === "true";
 
-        if(isLoginSuccess || (hasLocalFlag && !user)){
+        if(isLoginSuccess || hasLocalFlag){
+            console.log("getUser 호출");
             getUser();
+        }else{
+            setIsAuthLoading(false);
         }
         deleteLoginParams();
-    }, [getUser, user, isLoginSuccess]);
+    }, [getUser, isLoginSuccess]);
   return { user, isLoggedIn, isAuthLoading, handleLogout };
 }
 
